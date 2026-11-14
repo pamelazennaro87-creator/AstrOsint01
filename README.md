@@ -1,7 +1,7 @@
 # AstrOsint01
 
-**Interactive accessible OSINT spatial experience** for the NASA Space Apps Challenge 2026  
-*Be An Earth System Trend Detective!*
+**Interactive accessible OSINT spatial experience**  
+NASA Space Apps Challenge 2026 — *Be An Earth System Trend Detective!*
 
 ---
 
@@ -22,9 +22,25 @@ The decisive variable is not only climate — it is **who controls the water and
 
 ---
 
-### Key Documents
-- [**Mission & App Description**](MISSION.md) — official project mission and accessibility goals
-- [**Final Complete OSINT Investigation Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) — fully verified, source-traced research foundation
+### Key Documents (for Judges)
+
+| Document | Description |
+|----------|-------------|
+| [**MISSION.md**](MISSION.md) | Official project mission, goals and accessibility commitment |
+| [**Final Complete OSINT Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Fully verified research foundation with sources |
+| [**Epilepsy & Photosensitive Safety**](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) | Dedicated safety section with WCAG standards and primary sources |
+
+---
+
+### Accessibility Commitment
+
+- Designed to be usable by people with **photosensitive epilepsy**
+- Full support for `prefers-reduced-motion`
+- Optional Safe Mode that removes remaining animations
+- Data tables and screen-reader compatibility for every visualization
+- Optional data sonification under consideration
+
+See the dedicated [Epilepsy Safety document](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) for standards, thresholds and references.
 
 ---
 
