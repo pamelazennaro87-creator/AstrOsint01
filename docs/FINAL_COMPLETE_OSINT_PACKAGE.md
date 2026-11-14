@@ -22,16 +22,23 @@ The project uses **DETECT → COMPARE → VERIFY → EXPLORE** as its research w
 
 | Item | Details |
 |------|--------|
-| **Primary product** | JPL GRACE and GRACE-FO Mascon RL06.3 Version 04 (Equivalent Water Height) |
-| **Alternative** | CSR RL06.3 Mascon (cross-check) |
-| **Unit** | cm of equivalent water thickness |
-| **Coverage** | April 2002 – present (monthly) |
-| **Official source** | NASA PO.DAAC / grace.jpl.nasa.gov |
-| **Why selected** | Long continuous record; operationally used by California Department of Water Resources; high scientific credibility and uncertainty characterization |
+| **Primary product** | GEOGloWS export workflow described as JPL GRACE / GRACE-FO TWSa combined with GLDAS 2.1 |
+| **Processing version** | Not recorded in the original CSV export metadata. JPL RL06.3 Version 04 is a relevant public product reference, but it is not independently confirmed as the exact release behind these CSVs. |
+| **Derived layers** | TWSa (GRACE total water storage anomaly); GWSa residual derived by subtracting GLDAS soil-moisture, snow and canopy anomalies |
+| **Unit** | cm of equivalent liquid water thickness |
+| **CSV coverage** | April 2002 – June 2026 |
+| **Official workflow** | GEOGloWS GRACE Regional Analyst; NASA/JPL GRACE and GLDAS 2.1 |
+| **Current limitation** | Export receipts, exact region polygons, polygon areas and product-version metadata are not archived with the CSV files. |
 
-**Limitation:** GRACE spatial resolution is relatively coarse (hundreds of km). The signal is regional and cannot establish parcel-level or household-level conditions. Fine-scale interpretation requires complementary data (InSAR, optical, in-situ). The current project exports and their exact region masks still require documentation and independent review.
+GEOGloWS documents the calculation as `GWSa = TWSa − (SWEa + CANa + SMa)`. Surface water is not subtracted, so the residual may include changes in rivers, lakes, reservoirs and wetlands. GWSa is not a direct well measurement. The GEOGloWS workflow uses a three-model GLDAS 2.1 ensemble (Noah, VIC and CLSM); TWSa is served on a 0.5° grid and the derived GWSa on a 1° grid. The underlying GRACE spatial support remains coarse (about 3° / hundreds of kilometres), so displayed grid spacing must not be mistaken for true independent resolution.
 
----
+**Primary method references:**  
+- GEOGloWS, Deriving Groundwater Storage: https://training.geoglows.org/grace/background/deriving-groundwater/  
+- GEOGloWS, Regional View: https://training.geoglows.org/grace/app/regional-view/  
+- GEOGloWS, Downloading Data: https://training.geoglows.org/grace/app/downloading-data/  
+- NASA/JPL PO.DAAC JPL RL06.3 Version 04 (reference product; exact export release not confirmed): https://podaac.jpl.nasa.gov/dataset/TELLUS_GRAC-GRFO_MASCON_GRID_RL06.3_V4
+
+**Important:** The exact region masks and export settings still require recovery and independent review. The current CSVs are provisional exports, not yet a fully reproducible data release.
 
 ## 3. Regional Case A — California Central Valley (Depletion)
 
@@ -65,19 +72,23 @@ The research notes cite a 2025 study reporting a positive Inner Niger Delta TWS 
 
 ---
 
-## 5. Comparative Matrix — Core Investigative Table
+## 5. Evidence Status — Not a Direct Comparative Ranking
 
-| Dimension | California Central Valley | Sahel (Inner Niger Delta) |
-|-----------|---------------------------|---------------------------|
-| **TWS signal** | Negative long-term signal in project CSV; published literature reports groundwater depletion | Near-flat TWS in the current Taoudeni–Tanezrouft CSV; separate Inner Niger Delta study reports a positive trend |
-| **Possible drivers** | Groundwater pumping and drought are discussed in independent literature; attribution needs local evidence | Not established by the CSV; requires basin-specific hydrological evidence |
-| **Physical evidence** | InSAR subsidence studies are cited and require direct source linkage | Not established for the current CSV region; separate field evidence must be geographically matched |
-| **Human-system layer** | Agricultural water use and ownership concentration are research leads requiring traceable sources | Local water use and flood exposure require region-specific independent sources |
-| **Control structure** | Ownership claims need direct documentation and careful attribution | Not established by the satellite dataset |
-| **Human impact** | Subsidence and infrastructure impacts are reported in independent studies | Not inferred from the current CSV; requires local evidence |
-| **Current project confidence** | Regional signal visible; source mask and all corroborating citations need audit | Geographic identity unresolved; not comparable to Inner Niger Delta study yet |
+The three evidence items below are intentionally kept separate. Their regions, source products and processing methods are not currently aligned.
 
----
+| Evidence item | What the evidence currently says | What it does not establish |
+|---|---|---|
+| **California Central Valley project CSV** | Full-record TWSa slope: −1.355 cm/year; GWSa residual slope: −1.354 cm/year. In the last five years (June 2021–June 2026), the descriptive slopes are positive: +4.232 and +3.401 cm/year respectively. | It does not show a continuously falling trend in every period. Exact export polygon and product version remain unverified. |
+| **Taoudeni–Tanezrouft project CSV** | Full-record TWSa slope: +0.025 cm/year; GWSa residual slope: −0.080 cm/year. Last-five-year slopes are +0.377 and +0.346 cm/year. | It is not an Inner Niger Delta measurement. Exact polygon and export settings are not archived. |
+| **Published Inner Niger Delta study (separate dataset)** | Fatolazadeh & Goïta (2025) report positive TWS trends of about +7.3 to +9.5 mm/year for April 2002–September 2022. Their analysis uses UTCSR RL06 spherical-harmonic GRACE/GRACE-FO, downscaled to 0.25°, plus GLDAS CLSM 2.2 and WaterGAP surface-water information. | It is not a result from the Taoudeni–Tanezrouft CSV and is not a like-for-like comparison with the GEOGloWS exports. |
+
+All project CSV slopes above are descriptive OLS fits to observed, non-filled months only. They are not significance-tested, do not account yet for serial correlation, and must not be interpreted as causal estimates. The full-record and recent-window signs differ; the chosen time window must always be stated.
+
+**Central Valley literature context:** Liu et al. (2022) report GRACE/GRACE-FO-derived groundwater depletion of 15.7 ± 1.4 mm/year for September 2003–December 2021. This is an independent published result, not the slope calculated from the project CSV.
+
+**Inner Niger Delta literature context:** the 2025 paper's TWS trend is also an independent published result. Its authors explicitly discuss the contribution of surface water bodies and use WaterGAP to estimate them. This reinforces why GWSa residuals in wetland/delta regions must not be interpreted as pure groundwater without further separation.
+
+**Comparison rule:** until both study polygons, source products, time windows, baseline periods, uncertainty treatment and surface-water contributions are aligned, the project presents these as separate evidence cases—not a comparison between two directly comparable groundwater-loss rates.
 
 ## 6. OSINT Methodology Applied
 
@@ -88,18 +99,11 @@ The research notes cite a 2025 study reporting a positive Inner Niger Delta TWS 
 
 ---
 
-## 7. High-Resolution Visual Assets Generated
+## 7. Visual Asset Status
 
-Four ultra-high-resolution visual assets have been produced:
+The repository currently contains a visual-assets README with three planned image concepts, but **the three image files themselves are not present in the repository**. They must not be described as completed, uploaded or ready for presentation.
 
-1. **Comparative TWS Trend Graph** — Dual time series (California Central Valley in red vs Inner Niger Delta in blue) showing opposite long-term trajectories with seasonal cycles (2002–2024).
-2. **Opposite Water Futures Infographic** — Main thesis visual centered on the question “Who Controls the Change?”.
-3. **AstrOsint01 Methodology Diagram** — Clean four-stage process flow: DETECT → COMPARE → VERIFY → EXPLORE.
-4. **Comparative Matrix Visual** — Structured side-by-side comparison across seven dimensions.
-
-All visuals are designed for accessibility (clear labels, high contrast, accompanying data tables).
-
----
+Any future generated image must be labelled as a conceptual illustration, not as NASA satellite imagery or measured evidence. Quantitative charts and maps must be produced from validated datasets, carry units and geographic metadata, and include uncertainty and accessible text alternatives.
 
 ## 8. Guidance for the Development Engineer
 
