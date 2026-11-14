@@ -23,7 +23,8 @@ AstrOsint01 explores monthly total-water-storage anomalies (TWSa) and GEOGloWS-d
 - [Open the website](https://pamelazennaro87-creator.github.io/AstrOsint01/)
 - [Launch the Water Signal Explorer](https://pamelazennaro87-creator.github.io/AstrOsint01/explorer/)
 - [Open the source code](https://github.com/pamelazennaro87-creator/AstrOsint01)
-- [Open the monthly source datasets](https://github.com/AstrOsint01/nasa-water-storage-analysis)
+- [Central Valley CSV](https://github.com/AstrOsint01/nasa-water-storage-analysis/blob/main/central_valley.csv.csv)
+- [Taoudeni–Tanezrouft CSV](https://github.com/AstrOsint01/nasa-water-storage-analysis/blob/main/taoudeni-tanezrouft%20basin.csv.csv)
 
 ## Method and evidence
 
