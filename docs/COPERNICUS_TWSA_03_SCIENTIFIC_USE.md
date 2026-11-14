@@ -83,3 +83,43 @@ The PUGS also requires visible Copernicus attribution. Use the exact current wor
 This is a scientific-use specification, not evidence that Copernicus data have been downloaded, processed or independently validated in AstrOsint01.
 
 **Status:** metadata documented; scientific safeguards defined; acquisition, processing, reproducibility and comparison pending.
+
+
+## 9. NASA PO.DAAC GLDAS Noah 3.3: correct scientific role
+
+AstrOsint01 has identified the NASA PO.DAAC collection `TELLUS_GLDAS-NOAH-3.3_TWS-ANOMALY_MONTHLY` (v3.3; DOI 10.5067/GGDAS-3NH33). It is a monthly, global 1° NetCDF-4 product generated from the GLDAS Noah land-hydrology model.
+
+The catalogue describes its aggregate as the sum of **soil moisture, snow water and canopy water**. It does not include a groundwater-storage estimate. It is intended for comparison with GRACE/GRACE-FO observations, with monthly computation days aligned to the corresponding GRACE/GRACE-FO months (the PO.DAAC record specifies alignment with GRACE-FO monthly Level-2 RL06.3 JPL solutions).
+
+Scientific safeguards:
+- Treat this as a model-derived estimate of selected terrestrial-water components, not a satellite gravimetry observation or in-situ measurement.
+- Do not call `TWS_monthly` a groundwater variable.
+- Do not assume it equals all non-groundwater storage: the catalogue's stated aggregate is soil moisture + snow + canopy water; surface-water storage is not listed among those components.
+- Do not subtract this GLDAS aggregate from a GRACE TWSA product and label the remainder “groundwater” without evaluating component definitions, baselines, time windows, spatial support, leakage and omitted surface-water terms.
+- The 1° output grid is coarser than the Copernicus C3S TWSA 0.5° output grid. Regridding one product does not create additional physical resolution. Use a common, documented grid/mask and area-weighted regional aggregation for comparisons.
+- The products are not independent ground truth: GLDAS is model output, while GRACE/GRACE-FO is satellite gravimetry. Agreement is a consistency/comparison result, not validation against wells.
+- Confirm actual granule time coverage and NetCDF time coordinates; “to Present” in catalogue metadata is not a guarantee that every month exists.
+
+### Keep the three data roles separate
+
+| Dataset | What it represents | Role in AstrOsint01 |
+|---|---|---|
+| Copernicus C3S TWSA v1.0 | GRACE/GRACE-FO-derived total terrestrial-water-storage anomaly | Satellite-gravimetry TWSA product |
+| NASA PO.DAAC GLDAS Noah 3.3 | Modelled soil-moisture + snow + canopy-water anomaly aggregate | Complementary model component estimate |
+| Existing GEOGloWS-derived CSV residual | Existing project series produced by a separate workflow | Preserve its own provenance; do not silently replace it with this PO.DAAC collection |
+
+Do not assume the existing GEOGloWS-derived CSVs were generated from this exact PO.DAAC collection/version unless their source code, input manifests and provenance demonstrate that relationship.
+
+## 10. NASA source and citation
+
+- [NASA PO.DAAC dataset landing page](https://podaac.jpl.nasa.gov/dataset/TELLUS_GLDAS-NOAH-3.3_TWS-ANOMALY_MONTHLY)
+- [Earthdata granule search — collection C2036877565-POCLOUD](https://search.earthdata.nasa.gov/search/granules?p=C2036877565-POCLOUD)
+- [PO.DAAC collection directory](https://cmr.earthdata.nasa.gov/virtual-directory/collections/C2036877565-POCLOUD)
+- [GLDAS project documentation](https://ldas.gsfc.nasa.gov/gldas)
+- [Dataset DOI](https://doi.org/10.5067/GGDAS-3NH33)
+- [Rodell et al. (2004), The Global Land Data Assimilation System](https://doi.org/10.1175/BAMS-85-3-381)
+
+Suggested dataset citation:
+
+> Rodell M, et al. (2020). TELLUS_GLDAS-NOAH-3.3_TWS-ANOMALY_MONTHLY. Version 3.3. PO.DAAC, CA, USA. https://doi.org/10.5067/GGDAS-3NH33. Accessed [YYYY-MM-DD].
+
