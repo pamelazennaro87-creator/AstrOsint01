@@ -43,33 +43,33 @@
 <main id="main">
   <div class="wrap hero">
     <div class="eyebrow">NASA Space Apps Challenge 2026 · Earth System Trend Detective</div>
-    <h1>Earth in Transition.<br><em>Who controls the change?</em></h1>
-    <p class="lead">Two regions. One satellite record. Opposite water futures. AstrOsint01 turns NASA Earth-observation data into an open, accessible investigation of environmental change and its human consequences.</p>
+    <h1>Earth is changing.<br><em>Follow the water.</em></h1>
+    <p class="lead">One satellite record. Two very different regional signals. AstrOsint01 turns NASA Earth-observation data into an accessible investigation: what is changing, what can the evidence support, and how might people experience those changes?</p>
     <div class="actions">
       <a class="btn primary" href="explorer/">Open the Data Explorer ↗</a><a class="btn secondary" href="#investigation">Explore the investigation</a>
       <a class="btn secondary" href="https://github.com/pamelazennaro87-creator/AstrOsint01">Open the GitHub repository ↗</a>
     </div>
-    <p class="thesis">A trend line tells us what is changing. An investigation asks who benefits, who bears the risk, and what independent evidence supports the conclusion.</p>
+    <p class="thesis">A satellite signal is the beginning of an investigation—not its conclusion. We follow the evidence from measurement to uncertainty, then ask what it may mean for people and places.</p>
   </div>
 
   <section id="investigation"><div class="wrap">
-    <div class="eyebrow">01 / The investigation</div><h2>Opposite water futures</h2>
-    <p class="sub">We compare terrestrial water storage (TWS) signals from NASA GRACE / GRACE-FO with independent physical, economic and human-system evidence. The figures below are reported in the project's research package; consult the source document for periods, methods and limitations.</p>
+    <div class="eyebrow">01 / The investigation</div><h2>Two water stories. One investigative method.</h2>
+    <p class="sub">We begin with monthly GRACE / GRACE-FO-derived anomalies in the project CSVs, then ask what independent evidence is needed to interpret them. The two source files do not represent identical geographic units, so this is an exploratory comparison—not a controlled like-for-like experiment.</p>
     <div class="grid">
       <article class="card">
         <div class="tag">Case A · California, USA</div><h3>Central Valley</h3>
-        <div class="metric">−15.7 ± 1.4 mm/year</div>
-        <p>Published groundwater-depletion estimate for 2003–2021. The investigation connects long-term storage loss with intensive pumping, land subsidence and agricultural water use.</p>
-        <p class="small">Reported by Liu et al. (2022), as summarized in the research package. GRACE regional signals require complementary, finer-scale evidence.</p>
+        <div class="metric">Long-term decline</div>
+        <p>The project CSV shows a persistent negative long-term signal in both total-water and groundwater anomalies. Independent research on the Central Valley documents groundwater depletion and land subsidence. These are complementary evidence layers, not proof that every local impact is visible in GRACE.</p>
+        <p class="small">Literature benchmark: Liu et al. (2022), 15.7 ± 1.4 mm/year for groundwater depletion (2003–2021). This published estimate is not the same calculation as the live CSV trend.</p>
       </article>
       <article class="card">
         <div class="tag">Case B · Sahel, Mali</div><h3>Inner Niger Delta</h3>
-        <div class="metric">+7.3 to +9.5 mm/year</div>
-        <p>Positive terrestrial-water-storage trend reported for April 2002–September 2022. Increased water availability can coexist with seasonal flood exposure and unequal vulnerability.</p>
-        <p class="small">Reported by Fatolazadeh &amp; Goïta (2025), as summarized in the research package. Regional boundaries and uncertainty matter.</p>
+        <div class="metric">A much weaker signal</div>
+        <p>The second project CSV is labelled Taoudeni–Tanezrouft Basin. Its exported series shows near-flat total-water storage and a slightly negative groundwater trend. It must not be presented as a direct measurement of the Inner Niger Delta.</p>
+        <p class="small">The published Inner Niger Delta estimate in the research package (+7.3 to +9.5 mm/year) is a separate study result, not a result calculated from this Taoudeni–Tanezrouft CSV.</p>
       </article>
     </div>
-    <div class="notice"><strong>Evidence discipline:</strong> satellite observations do not, by themselves, prove ownership, causation or individual responsibility. We separate measured signals, independent corroboration, interpretation and open questions.</div>
+    <div class="notice"><strong>Critical distinction:</strong> the published Inner Niger Delta study and the project's Taoudeni–Tanezrouft CSV are not interchangeable. We keep their findings separate, disclose geographic uncertainty and do not infer causation, ownership or responsibility from a satellite trend alone.</div>
   </div></section>
 
 
@@ -86,7 +86,7 @@
   </div></section>
 
   <section id="method"><div class="wrap">
-    <div class="eyebrow">02 / Our method</div><h2>From detection to investigation</h2>
+    <div class="eyebrow">03 / Our method</div><h2>From detection to investigation</h2>
     <p class="sub">The same analytical sequence is applied to both regions. Every conclusion should be traceable to a source and should communicate uncertainty.</p>
     <div class="steps">
       <div class="step"><b>DETECT</b><p>Identify the water-storage trends in NASA satellite records.</p></div>
@@ -97,7 +97,7 @@
   </div></section>
 
   <section id="evidence"><div class="wrap">
-    <div class="eyebrow">03 / Source room</div><h2>Follow the evidence</h2>
+    <div class="eyebrow">04 / Source room</div><h2>Follow the evidence</h2>
     <p class="sub">The repository is the source of truth for research documents, methodology and future software releases. These links open the underlying project files.</p>
     <div class="evidence">
       <a href="docs/FINAL_COMPLETE_OSINT_PACKAGE.md"><strong>Final OSINT research package ↗</strong><span>Regional comparison, reported estimates, verification layers and source list.</span></a>
@@ -109,7 +109,7 @@
   </div></section>
 
   <section id="accessibility"><div class="wrap">
-    <div class="eyebrow">04 / Accessibility by design</div><h2>Evidence must be safe to access</h2>
+    <div class="eyebrow">05 / Accessibility by design</div><h2>Evidence must be safe to access</h2>
     <p class="sub">The experience is designed around keyboard access, readable structure, reduced motion, text alternatives and data tables alongside visualizations. We avoid flashing and strobing effects. A manual Safe Mode is available on this page; it does not replace testing with assistive technologies or clinical review.</p>
     <div class="grid">
       <div class="card"><h3>Reduced motion</h3><p>Respects the operating system's <code>prefers-reduced-motion</code> setting and removes non-essential animation.</p></div>
@@ -118,10 +118,10 @@
   </div></section>
 
   <section id="team"><div class="wrap">
-    <div class="eyebrow">05 / Open collaboration</div><h2>Built as a shared investigation</h2>
+    <div class="eyebrow">06 / Open collaboration</div><h2>Built as a shared investigation</h2>
     <p class="sub">AstrOsint01 brings together OSINT, Earth science, data analysis, AI and software development. The repository is the shared workspace: contributions, code, research notes and releases belong in one traceable project.</p>
     <div class="actions"><a class="btn primary" href="https://github.com/pamelazennaro87-creator/AstrOsint01">Contribute on GitHub ↗</a><a class="btn secondary" href="https://github.com/pamelazennaro87-creator/AstrOsint01/issues">Open tasks and discussions ↗</a></div>
-    <p class="small">Interactive data explorer: prototype integration in progress. This page does not pretend that an unfinished software component is already live.</p>
+    <p class="small">Interactive data explorer: research prototype. Values and trends are exploratory and must be interpreted with the limitations shown in the tool.</p>
   </div></section>
 </main>
 <footer><div class="wrap footerline"><span><strong>AstrOsint01</strong> · NASA Space Apps Challenge 2026</span><span>Independent exploration. Shared evidence. Verifiable conclusions.</span></div></footer>
