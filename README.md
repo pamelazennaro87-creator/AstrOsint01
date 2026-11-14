@@ -23,6 +23,7 @@ The decisive variable is not only climate — it is **who controls the water and
 ---
 
 ### Key Documents
+- [**Mission & App Description**](MISSION.md) — official project mission and accessibility goals
 - [**Final Complete OSINT Investigation Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) — fully verified, source-traced research foundation
 
 ---
