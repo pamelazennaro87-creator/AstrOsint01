@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071a20">
+  <meta name="description" content="AstrOsint01 investigates opposite terrestrial water-storage trends using NASA GRACE and GRACE-FO data.">
+  <title>AstrOsint01 — Earth in Transition</title>
+  <style>
+    :root{color-scheme:dark;--bg:#071a20;--panel:#0d272e;--panel2:#102f36;--ink:#edf7f4;--muted:#aec5c1;--aqua:#71d8c4;--sand:#e5c58b;--line:#285057;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#16434a 0,transparent 36%),var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    a{color:var(--aqua);text-underline-offset:4px}a:hover{color:#b3f1e4}a:focus-visible,button:focus-visible{outline:3px solid var(--sand);outline-offset:4px}
+    .skip{position:absolute;left:-9999px;top:8px;background:#fff;color:#000;padding:10px;z-index:9}.skip:focus{left:8px}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
+    .brand{font-weight:800;letter-spacing:.14em;font-size:.9rem}.brand span{color:var(--aqua)}nav{display:flex;flex-wrap:wrap;gap:18px}nav a{text-decoration:none;color:var(--muted);font-size:.92rem}
+    .hero{padding:88px 0 72px;max-width:900px}.eyebrow{color:var(--aqua);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:.76rem}
+    h1{font-size:clamp(2.7rem,7vw,5.7rem);line-height:.99;letter-spacing:-.055em;margin:18px 0 24px;max-width:900px}
+    h1 em{font-style:normal;color:var(--aqua)}.lead{font-size:clamp(1.1rem,2vw,1.35rem);color:var(--muted);max-width:760px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.btn{display:inline-block;padding:12px 18px;border-radius:4px;border:1px solid var(--aqua);text-decoration:none;font-weight:700}.btn.primary{background:var(--aqua);color:#062027}.btn.secondary{color:var(--ink);border-color:var(--line)}
+    .thesis{border-left:3px solid var(--sand);padding:12px 0 12px 20px;margin:28px 0 0;color:#d8e7e2;max-width:720px}
+    section{padding:64px 0;border-top:1px solid var(--line)}h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;letter-spacing:-.035em;margin:10px 0 18px}h3{font-size:1.25rem;margin:0 0 8px}.sub{color:var(--muted);max-width:760px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);padding:26px;border-radius:8px;min-width:0}
+    .tag{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);font-weight:700}.metric{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;color:var(--aqua);line-height:1.2;margin:18px 0 8px}.small{font-size:.88rem;color:var(--muted)}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px}.step{padding:18px;border-top:2px solid var(--aqua);background:var(--panel)}.step b{display:block;font-size:1.05rem;letter-spacing:.08em}.step p{margin:8px 0 0;color:var(--muted);font-size:.92rem}
+    .evidence{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}.evidence a{display:block;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:6px;text-decoration:none}.evidence a strong{display:block;color:var(--ink);margin-bottom:5px}.evidence a span{font-size:.9rem;color:var(--muted)}
+    .notice{padding:20px;border:1px solid var(--sand);border-radius:6px;color:#e9dfca;background:#2a281f;margin-top:22px}
+    footer{padding:34px 0 50px;color:var(--muted);font-size:.9rem}.footerline{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .safe{position:fixed;right:16px;bottom:16px;background:#f2e6cb;color:#17252a;border:0;border-radius:5px;padding:10px 14px;font-weight:800;cursor:pointer;z-index:5}
+    body.safe-mode *,body.safe-mode *::before,body.safe-mode *::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+    @media(max-width:760px){.top{align-items:flex-start;flex-direction:column}.hero{padding:62px 0 50px}.grid,.evidence{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}section{padding:48px 0}}
+    @media(max-width:420px){.wrap{width:min(100% - 28px,var(--max))}.steps{grid-template-columns:1fr}nav{gap:12px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="wrap top">
+  <div class="brand">ASTRO<span>SINT</span> 01</div>
+  <nav aria-label="Main navigation">
+    <a href="#investigation">Investigation</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#accessibility">Accessibility</a><a href="#team">Team</a>
+  </nav>
+</header>
+<main id="main">
+  <div class="wrap hero">
+    <div class="eyebrow">NASA Space Apps Challenge 2026 · Earth System Trend Detective</div>
+    <h1>Earth in Transition.<br><em>Who controls the change?</em></h1>
+    <p class="lead">Two regions. One satellite record. Opposite water futures. AstrOsint01 turns NASA Earth-observation data into an open, accessible investigation of environmental change and its human consequences.</p>
+    <div class="actions">
+      <a class="btn primary" href="#investigation">Explore the investigation</a>
+      <a class="btn secondary" href="https://github.com/pamelazennaro87-creator/AstrOsint01">Open the GitHub repository ↗</a>
+    </div>
+    <p class="thesis">A trend line tells us what is changing. An investigation asks who benefits, who bears the risk, and what independent evidence supports the conclusion.</p>
+  </div>
+
+  <section id="investigation"><div class="wrap">
+    <div class="eyebrow">01 / The investigation</div><h2>Opposite water futures</h2>
+    <p class="sub">We compare terrestrial water storage (TWS) signals from NASA GRACE / GRACE-FO with independent physical, economic and human-system evidence. The figures below are reported in the project's research package; consult the source document for periods, methods and limitations.</p>
+    <div class="grid">
+      <article class="card">
+        <div class="tag">Case A · California, USA</div><h3>Central Valley</h3>
+        <div class="metric">−15.7 ± 1.4 mm/year</div>
+        <p>Published groundwater-depletion estimate for 2003–2021. The investigation connects long-term storage loss with intensive pumping, land subsidence and agricultural water use.</p>
+        <p class="small">Reported by Liu et al. (2022), as summarized in the research package. GRACE regional signals require complementary, finer-scale evidence.</p>
+      </article>
+      <article class="card">
+        <div class="tag">Case B · Sahel, Mali</div><h3>Inner Niger Delta</h3>
+        <div class="metric">+7.3 to +9.5 mm/year</div>
+        <p>Positive terrestrial-water-storage trend reported for April 2002–September 2022. Increased water availability can coexist with seasonal flood exposure and unequal vulnerability.</p>
+        <p class="small">Reported by Fatolazadeh &amp; Goïta (2025), as summarized in the research package. Regional boundaries and uncertainty matter.</p>
+      </article>
+    </div>
+    <div class="notice"><strong>Evidence discipline:</strong> satellite observations do not, by themselves, prove ownership, causation or individual responsibility. We separate measured signals, independent corroboration, interpretation and open questions.</div>
+  </div></section>
+
+  <section id="method"><div class="wrap">
+    <div class="eyebrow">02 / Our method</div><h2>From detection to investigation</h2>
+    <p class="sub">The same analytical sequence is applied to both regions. Every conclusion should be traceable to a source and should communicate uncertainty.</p>
+    <div class="steps">
+      <div class="step"><b>DETECT</b><p>Identify the water-storage trends in NASA satellite records.</p></div>
+      <div class="step"><b>COMPARE</b><p>Use consistent regional definitions and comparable methods.</p></div>
+      <div class="step"><b>VERIFY</b><p>Cross-check with independent satellite, scientific and public evidence.</p></div>
+      <div class="step"><b>EXPLORE</b><p>Investigate who controls resources, who benefits and who bears risk.</p></div>
+    </div>
+  </div></section>
+
+  <section id="evidence"><div class="wrap">
+    <div class="eyebrow">03 / Source room</div><h2>Follow the evidence</h2>
+    <p class="sub">The repository is the source of truth for research documents, methodology and future software releases. These links open the underlying project files.</p>
+    <div class="evidence">
+      <a href="docs/FINAL_COMPLETE_OSINT_PACKAGE.md"><strong>Final OSINT research package ↗</strong><span>Regional comparison, reported estimates, verification layers and source list.</span></a>
+      <a href="STORY.md"><strong>Project story ↗</strong><span>The narrative behind the two contrasting water futures.</span></a>
+      <a href="MISSION.md"><strong>Mission and objectives ↗</strong><span>Scope, research method and prototype goals.</span></a>
+      <a href="docs/ACCESSIBILITY_EPILEPSY_SAFE.md"><strong>Accessibility and safety ↗</strong><span>Photosensitivity safeguards, reduced motion and testing commitments.</span></a>
+    </div>
+    <p class="small" style="margin-top:18px">Primary data family: NASA GRACE / GRACE-FO. <a href="https://grace.jpl.nasa.gov/">NASA GRACE Tellus</a> · <a href="https://podaac.jpl.nasa.gov/">NASA PO.DAAC</a></p>
+  </div></section>
+
+  <section id="accessibility"><div class="wrap">
+    <div class="eyebrow">04 / Accessibility by design</div><h2>Evidence must be safe to access</h2>
+    <p class="sub">The experience is designed around keyboard access, readable structure, reduced motion, text alternatives and data tables alongside visualizations. We avoid flashing and strobing effects. A manual Safe Mode is available on this page; it does not replace testing with assistive technologies or clinical review.</p>
+    <div class="grid">
+      <div class="card"><h3>Reduced motion</h3><p>Respects the operating system's <code>prefers-reduced-motion</code> setting and removes non-essential animation.</p></div>
+      <div class="card"><h3>Multiple ways to read data</h3><p>Charts and maps must be paired with structured tables and concise text descriptions. Color is never the only signal.</p></div>
+    </div>
+  </div></section>
+
+  <section id="team"><div class="wrap">
+    <div class="eyebrow">05 / Open collaboration</div><h2>Built as a shared investigation</h2>
+    <p class="sub">AstrOsint01 brings together OSINT, Earth science, data analysis, AI and software development. The repository is the shared workspace: contributions, code, research notes and releases belong in one traceable project.</p>
+    <div class="actions"><a class="btn primary" href="https://github.com/pamelazennaro87-creator/AstrOsint01">Contribute on GitHub ↗</a><a class="btn secondary" href="https://github.com/pamelazennaro87-creator/AstrOsint01/issues">Open tasks and discussions ↗</a></div>
+    <p class="small">Interactive data explorer: prototype integration in progress. This page does not pretend that an unfinished software component is already live.</p>
+  </div></section>
+</main>
+<footer><div class="wrap footerline"><span><strong>AstrOsint01</strong> · NASA Space Apps Challenge 2026</span><span>Independent exploration. Shared evidence. Verifiable conclusions.</span></div></footer>
+<button class="safe" id="safeToggle" type="button" aria-pressed="false">Safe Mode: off</button>
+<script>
+  (function(){
+    const button=document.getElementById('safeToggle');
+    button.addEventListener('click',function(){
+      const active=document.body.classList.toggle('safe-mode');
+      button.setAttribute('aria-pressed',String(active));
+      button.textContent=active?'Safe Mode: on':'Safe Mode: off';
+    });
+  })();
+</script>
+</body>
+</html>
