@@ -1,47 +1,23 @@
 # Visual Assets — AstrOsint01
 
-**Earth in Transition: Opposite Water Futures**
+**Status: planned concepts only — image files are not currently present in this repository.**
 
-These images support the core storytelling of the project. They are designed to be photorealistic, high-resolution, and fully aligned with the investigative narrative.
+The entries below are intended visual concepts, not completed or verified deliverables. Do not link to them, describe them as uploaded, or present them to judges as evidence until the actual files are committed and reviewed.
 
----
+| Planned filename | Concept | Intended role |
+|---|---|---|
+| `01-california-central-valley.jpg` | Central Valley landscape and irrigation context | Context illustration for Case A |
+| `02-inner-niger-delta.jpg` | Seasonal wetland and floodplain context | Context illustration for a separately sourced Inner Niger Delta case |
+| `03-opposite-futures.jpg` | Conceptual contrast between dry and flooded landscapes | Opening metaphor, not a data visualization |
 
-## Image Index (Ordered)
+## Evidence and image rules
 
-| # | Filename | Subject | Narrative Role |
-|---|----------|---------|----------------|
-| 01 | `01-california-central-valley.jpg` | Dense almond orchards + irrigation canal + dry hills | **Depletion under concentrated control** — landscape of extraction and virtual water export |
-| 02 | `02-inner-niger-delta.jpg` | Seasonal wetland expansion across the Sahel | **Increase + flood paradox** — rising water under local/contested control |
-| 03 | `03-opposite-futures.jpg` | Split visual: cracked dry land vs flooded wetland | **Core metaphor** — same planet, opposite outcomes. Who controls the change? |
+- Photographs or satellite imagery must have a traceable source, date, geographic footprint and usage rights.
+- AI-generated visuals must be labelled as conceptual illustrations; they must never be passed off as NASA imagery, satellite observations or measured maps.
+- Any graph or map showing quantitative results must be generated from the validated source data and include units, dates, geographic masks and uncertainty notes.
+- The Inner Niger Delta must not be visually substituted for the Taoudeni–Tanezrouft dataset.
+- Accessibility review is required before publication: meaningful alt text, no flashing, sufficient contrast and no color-only encoding.
 
----
+## Current repository state
 
-## How to use these images
-
-- **Pitch / Demo** → Use image 03 as the opening visual
-- **Case A (California)** → Image 01
-- **Case B (Sahel)** → Image 02
-- **Comparative moment** → Image 03 again or side-by-side of 01 + 02
-
-All images are generated in photorealistic style and are safe for accessibility purposes (no flashing, no high-frequency motion).
-
----
-
-## File Placement Instructions
-
-Upload the three image files into this `visuals/` folder with the exact filenames listed above.
-
-Once uploaded, the structure will be:
-
-```
-visuals/
-├── README.md
-├── 01-california-central-valley.jpg
-├── 02-inner-niger-delta.jpg
-└── 03-opposite-futures.jpg
-```
-
----
-
-**AstrOsint01 OSINT Cell**  
-Visual narrative ready for prototype and competition presentation.
+Only this README is present in the `visuals/` folder. No JPG image assets are committed at this time.
