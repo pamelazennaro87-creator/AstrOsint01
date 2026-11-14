@@ -1,97 +1,103 @@
-# ASTROSINT 01 — The Story We Tell
+# ASTROSINT 01 — The Story
 
-**Earth in Transition: Opposite Water Futures — Who Controls the Change?**
+## Earth is changing. Follow the water.
 
----
+**NASA Space Apps Challenge 2026 · Be An Earth System Trend Detective**
 
-## Opening
+A satellite can measure a change across hundreds of kilometres. It cannot, by itself, tell us who caused it, who benefits, or which household will face the consequences.
 
-Two regions.  
-Same planet.  
-Same satellite system measuring the same physical variable: terrestrial water storage.
+That is where our investigation begins.
 
-In one place, the water is disappearing into the ground and never coming back.  
-In the other, the water is rising.
-
-NASA data captures both trends with high confidence.  
-But the data alone does not explain the human outcome.
+AstrOsint01 follows the water signal from space to evidence on the ground. We compare two regional datasets, question what their boundaries really represent, and separate what is measured from what is inferred.
 
 ---
 
-## The Core Insight
+## Opening scene — One planet, two signals
 
-In California’s Central Valley, decades of intensive groundwater extraction have produced permanent land subsidence and long-term storage loss.  
-The water that is removed is converted into high-value crops and exported as virtual water under highly concentrated institutional and corporate control.
+Imagine looking at Earth from hundreds of kilometres above it.
 
-In the Inner Niger Delta, the same satellite record shows a statistically significant increase in water storage.  
-Yet this increase arrives together with higher flood risk, displacement, and the complications of local and contested control.
+There is no property line. No irrigation permit. No village boundary. No crop contract. There is only a changing mass of water, measured over a very large footprint.
 
-**The decisive variable is not only climate.**  
-It is control.
+GRACE and GRACE-FO help us observe those changes in terrestrial water storage. Their strength is scale and continuity. Their limitation is also scale: a regional satellite signal is not a street-level account of water access.
 
-Who extracts.  
-Who benefits.  
-Who bears the risk.
+So we ask a different question:
 
----
+**When the water signal changes, what can we prove—and what must we still investigate?**
 
-## Visual Narrative
+## Case file 01 — California Central Valley
 
-### 1. California Central Valley — Depletion under Concentrated Control
-Dense geometric rows of almond orchards stretch across the valley floor beside irrigation infrastructure and dry hills.  
-This is the landscape of extraction: water removed from the subsurface, converted into exportable commodities, controlled by a small number of powerful actors.
+The project's Central Valley time series shows a negative long-term trend in both total-water-storage and groundwater anomalies.
 
-### 2. Inner Niger Delta — Increase under Contested Conditions
-Seasonal floodwaters expand across the Sahel, turning arid land into a vast wetland.  
-The same physical process that raises terrestrial water storage also elevates flood risk for communities living under predominantly local and contested control structures.
+That signal is consistent with a wider body of research documenting groundwater depletion in California's Central Valley. Published work by Liu et al. (2022) estimated groundwater depletion at 15.7 ± 1.4 mm/year for 2003–2021. Independent InSAR observations have documented land subsidence in affected areas.
 
-### 3. Opposite Futures
-One side cracked and dry.  
-The other side flooded and green.  
-Same planet. Opposite outcomes. The difference is who controls the change.
+These are different evidence layers:
+- GRACE / GRACE-FO provides a broad regional water-storage signal.
+- Ground-based and InSAR research helps investigate aquifer stress and land movement.
+- Agricultural and water-use records help examine possible drivers and who is exposed.
 
----
+**What the satellite does not prove:** which individual farm pumped how much, who owns a parcel, or who is legally responsible. Those questions require separate records and spatially appropriate evidence.
 
-## What Makes This Divergent
+## Case file 02 — The Sahel/Sahara dataset
 
-Most Earth observation projects stop at the trend line.
+The second CSV currently used by our Explorer is named **Taoudeni–Tanezrouft Basin**. Its exported series shows a near-flat total-water-storage trend and a slightly negative groundwater trend over the full record.
 
-We refuse to stop there.
+This is not the same geographic unit as the **Inner Niger Delta**.
 
-We treat the NASA GRACE/GRACE-FO record as evidence that must be investigated, not merely displayed.  
-We move deliberately through four stages:
+A separate 2025 study cited in the research package reports a positive trend for the Inner Niger Delta. That published finding may be important context, but it cannot be substituted for the Taoudeni–Tanezrouft dataset or presented as if both refer to the same boundary.
 
-**DETECT** the opposite trends  
-**COMPARE** them with identical methods  
-**VERIFY** them with independent physical and human-system evidence  
-**EXPLORE** the structures of power and consequence that give those trends their meaning
+This mismatch is not a footnote to hide. It is a research question to resolve:
+- Which exact polygon was selected when the CSV was exported?
+- Does it overlap the Inner Niger Delta, the wider basin, or neither?
+- Can we obtain a second dataset using a clearly defined Inner Niger Delta boundary?
+- Are the time period, units, processing and gap-filling methods comparable?
 
-This is not a dashboard.  
-It is an investigative instrument.
+Until those questions are answered, we label the dataset by its actual source name.
 
----
+## The investigative turn — A line is not an explanation
 
-## Accessibility as Integrity
+A trend can reveal a pattern. It cannot, alone, establish a cause.
 
-Evidence that cannot be safely accessed is incomplete evidence.
+Our investigation therefore follows four stages:
 
-We design so that people with photosensitive epilepsy can investigate without risk.  
-We design so that screen-reader users and keyboard-only users can follow the same chain of evidence.  
-We treat reduced motion, data tables, and optional sonification as core requirements of scientific integrity.
+1. **DETECT** — inspect the monthly satellite-derived anomalies.
+2. **COMPARE** — state the region, variable, period, units and processing for every comparison.
+3. **VERIFY** — seek independent evidence such as InSAR, hydrological records, field studies and public documentation.
+4. **EXPLORE** — ask how the physical change may intersect with livelihoods, infrastructure, governance and unequal exposure.
 
-Accessibility is not an add-on.  
-It is part of the verification process itself.
+We keep observations, published findings, interpretations and open questions visibly separate.
 
----
+## The human question
 
-## Closing Line
+Water abundance is not automatically safety. Water scarcity is not distributed equally. A regional average can conceal seasonal extremes and local differences.
 
-We do not ask users to look at Earth system trends.  
-We ask them to investigate who controls the change.
+The next layer of this project is to connect verified physical evidence with carefully sourced information about:
+- agricultural dependence and water use;
+- flood exposure and infrastructure;
+- local water governance and access;
+- the distribution of costs, benefits and adaptation capacity.
 
-**Independent exploration. Shared evidence. Verifiable conclusions.**
+We will not infer ownership, conflict, displacement or responsibility from a satellite trend. Each claim needs its own evidence.
 
----
+## The interactive experience
 
-**AstrOsint01 OSINT Cell**  
-NASA Space Apps Challenge 2026
+The Water Signal Explorer lets visitors select a study area, switch between total-water and groundwater anomalies, choose a time window, and inspect the monthly records.
+
+The regression uses observed, non-filled values only. Gap-filled months remain visible and are counted separately. The trend is descriptive; it is not a significance test, forecast or causal model.
+
+The next development step is a true side-by-side comparison with aligned axes, explicit geographic metadata and a downloadable evidence table.
+
+## Accessibility is part of the method
+
+An investigation is only useful if people can access its evidence.
+
+We prioritize keyboard navigation, clear labels, reduced motion, no flashing effects, text explanations and data tables alongside charts. A manual Safe Mode is available. These measures are design safeguards, not a claim of clinical certification; accessibility must be tested with assistive technologies and users.
+
+## Closing
+
+We do not ask people to accept a dramatic map or a persuasive headline.
+
+We invite them to follow the data, inspect the source, question the boundary and decide what the evidence can—and cannot—say.
+
+**Look at the signal. Question the story. Verify the ground truth.**
+
+*Independent exploration. Shared evidence. Verifiable conclusions.*
