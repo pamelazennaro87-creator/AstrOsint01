@@ -1,3 +1,6 @@
+> [!WARNING]
+> **Research audit update — 2026-11-14:** This document is an earlier draft and is **not** a fully verified or competition-ready evidence package. Several statements below require correction or primary-source verification. In particular, the California value of −15.7 ± 1.4 mm/year is a derived groundwater-storage-anomaly estimate, whereas the Inner Niger +7.3 to +9.5 mm/year value is a total terrestrial water storage trend from a different GRACE processing chain and period. They are not directly comparable. Do not repeat unqualified claims about ownership, subsidence, flood causation, statistical significance, or completed team calculations. Use [RESEARCH_AUDIT_AND_CORRECTIONS.md](RESEARCH_AUDIT_AND_CORRECTIONS.md) and [EVIDENCE_REGISTER_TEMPLATE.md](EVIDENCE_REGISTER_TEMPLATE.md) as the source-audited reference before reusing any claim.
+
 # ASTROSINT 01
 ## FINAL COMPLETE OSINT INVESTIGATION PACKAGE
 ### Earth in Transition: Opposite Water Futures — Who Controls the Change?
