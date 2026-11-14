@@ -26,9 +26,22 @@ The decisive variable is not only climate — it is **who controls the water and
 
 | Document | Description |
 |----------|-------------|
-| [**MISSION.md**](MISSION.md) | Official project mission, goals and accessibility commitment |
+| [**STORY.md**](STORY.md) | Divergent storytelling and visual narrative |
+| [**MISSION.md**](MISSION.md) | Official project mission and accessibility commitment |
 | [**Final Complete OSINT Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Fully verified research foundation with sources |
 | [**Epilepsy & Photosensitive Safety**](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) | Dedicated safety section with WCAG standards and primary sources |
+
+---
+
+### Visual Assets
+
+Three high-resolution photorealistic images support the narrative:
+
+1. **California Central Valley** — Dense almond orchards and irrigation infrastructure (landscape of extraction and concentrated control)
+2. **Inner Niger Delta** — Seasonal wetland expansion across the Sahel (increase + flood paradox)
+3. **Opposite Futures** — Split visual of dry cracked land versus flooded wetland (the core metaphor)
+
+These images are available in the conversation assets and will be integrated into the interactive prototype and presentation materials.
 
 ---
 
@@ -45,7 +58,7 @@ See the dedicated [Epilepsy Safety document](docs/ACCESSIBILITY_EPILEPSY_SAFE.md
 ---
 
 ### Status
-Research phase complete. Ready for interactive prototype development and competition submission.
+Research phase complete. Storytelling and visual narrative ready. Prototype development in progress.
 
 ---
 
