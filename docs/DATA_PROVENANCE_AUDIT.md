@@ -13,7 +13,7 @@ Source repository: https://github.com/AstrOsint01/nasa-water-storage-analysis
 | `central_valley.csv.csv` | 291 | 2002-04 to 2026-06 | 256 each | 35 each |
 | `taoudeni-tanezrouft basin.csv.csv` | 291 | 2002-04 to 2026-06 | 256 each | 35 each |
 
-Both files have columns for Date, TWSa, GWSa, their upper/lower bounds, filled series and filled flags, plus SMa, SWEa and CANa columns.
+Both files have columns for Date, TWSa, GWSa, their upper/lower bounds, filled series and filled flags, plus SMa, SWEa and CANa columns. Current Git blob identifiers: `central_valley.csv.csv` = `109fd8cd68236bdd913fcb9788d2378ef31e322c`; `taoudeni-tanezrouft basin.csv.csv` = `cf3d20dcec1abfabe64c0546fb457d4e8e24c4b6`; source README = `132abbf9523c71be357954248d4ac1b4570bc153`.
 
 ## 2. What is verified from the files
 
@@ -28,6 +28,8 @@ Both files have columns for Date, TWSa, GWSa, their upper/lower bounds, filled s
 The public Git history shows both CSV files were added together in commit `9e5d207eb18005557443ab8c008fb76b72f31490` on 14 November 2026 at 19:38:23 UTC. The commit message is "add water storage CSV data". This establishes when the files entered this Git repository, not when or how the source data were originally downloaded.
 
 The source repository README was updated later on 14 November 2026 at 20:08:30 UTC and states "Downloaded on: 15 Nov 2026". That stated retrieval date is later than the README commit timestamp and cannot be treated as a verified download date. No original export receipt, selected polygon, or export configuration is archived with the files.
+
+The source README also has substantive inconsistencies: its file list names `inner_niger_delta.csv`, but the actual file is `taoudeni-tanezrouft basin.csv.csv`; its period and results sections still contain placeholders; and it asserts that Central Valley loses groundwater more than 20 times faster than Taoudeni–Tanezrouft. That comparative ratio is not defensible from the current exports because the exact masks are missing, the geographic units are not aligned, and GWSa retains surface-water storage. Its listed TWSa/GWSa trends are also rounded narrative values, not a reproducible analysis record. The source repository README has not been corrected; the GitHub integration returned HTTP 403 when attempting to write to that separate repository. The main AstrOsint01 repository now carries this correction and the audit.
 
 ## 4. What is not verified yet
 
