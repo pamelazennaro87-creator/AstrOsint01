@@ -7,16 +7,16 @@ NASA Space Apps Challenge 2026 — *Be An Earth System Trend Detective!*
 
 **Earth is changing. Follow the water.**
 
-AstrOsint01 explores monthly terrestrial-water-storage and groundwater anomaly series derived from GRACE / GRACE-FO data. The experience combines an interactive data explorer with an OSINT-style evidence workflow:
+AstrOsint01 explores monthly total-water-storage anomalies (TWSa) and GEOGloWS-derived groundwater-storage residuals (GWSa) based on GRACE / GRACE-FO and GLDAS data. The experience combines an interactive data explorer with an OSINT-style evidence workflow:
 
 **DETECT → COMPARE → VERIFY → EXPLORE**
 
 ### Current study areas
 
-- **California Central Valley** — the project CSV shows a negative long-term signal in total-water and groundwater anomalies. Independent research documents groundwater depletion and land subsidence.
+- **California Central Valley** — the project CSV shows a negative full-record signal in TWSa and the model-derived GWSa residual. Independent research documents groundwater depletion and land subsidence.
 - **Taoudeni–Tanezrouft Basin** — the second CSV is labelled for this basin. Its exported series shows near-flat total-water storage and a slightly negative groundwater trend.
 
-**Important geographic limitation:** Taoudeni–Tanezrouft is not interchangeable with the Inner Niger Delta. A separate peer-reviewed Inner Niger Delta study cited in the research dossier is contextual literature, not the result of this CSV. We do not present the two as the same measurement.
+**Important interpretation limitation:** GEOGloWS derives GWSa by subtracting GLDAS soil-moisture, snow and canopy anomalies from TWSa; surface-water storage is not removed, so GWSa can include rivers, lakes, reservoirs and wetlands. It is a model-derived residual, not a direct well measurement. Taoudeni–Tanezrouft is also not interchangeable with the Inner Niger Delta. A separate peer-reviewed Inner Niger Delta study cited in the research dossier is contextual literature, not the result of this CSV. We do not present the two as the same measurement.
 
 ## Explore
 
