@@ -7,7 +7,7 @@
 ## Access routes
 The product is discoverable through the ECMWF Data Stores STAC Catalogue API and Copernicus Climate Data Store (CDS).
 
-- [STAC Browser collection](https://cds.climate.copernicus.eu/stac-browser/collections/satellite-terrestrial-water-storage)
+- [STAC Browser collection — exact source URL supplied for this audit](https://cds.climate.copernicus.eu/stac-browser/collections/satellite-terrestrial-water-storage?.language=en)
 - [CDS dataset page](https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage)
 - [CDS download form](https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage?tab=download)
 - [CDS portal and API access](https://cds.climate.copernicus.eu/)
