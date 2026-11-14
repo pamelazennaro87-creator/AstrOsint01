@@ -26,7 +26,7 @@ So we ask a different question:
 
 ## Case file 01 — California Central Valley
 
-The project's Central Valley time series shows a negative long-term trend in both total-water-storage and groundwater anomalies.
+The project's Central Valley time series shows a negative full-record trend in TWSa and the GEOGloWS-derived GWSa residual.
 
 That signal is consistent with a wider body of research documenting groundwater depletion in California's Central Valley. Published work by Liu et al. (2022) estimated groundwater depletion at 15.7 ± 1.4 mm/year for 2003–2021. Independent InSAR observations have documented land subsidence in affected areas.
 
@@ -39,7 +39,7 @@ These are different evidence layers:
 
 ## Case file 02 — The Sahel/Sahara dataset
 
-The second CSV currently used by our Explorer is named **Taoudeni–Tanezrouft Basin**. Its exported series shows a near-flat total-water-storage trend and a slightly negative groundwater trend over the full record.
+The second CSV currently used by our Explorer is named **Taoudeni–Tanezrouft Basin**. Its exported series shows a near-flat total-water-storage trend and a slightly negative full-record GWSa residual trend.
 
 This is not the same geographic unit as the **Inner Niger Delta**.
 
@@ -54,6 +54,8 @@ This mismatch is not a footnote to hide. It is a research question to resolve:
 Until those questions are answered, we label the dataset by its actual source name.
 
 ## The investigative turn — A line is not an explanation
+
+GEOGloWS derives GWSa by subtracting GLDAS soil-moisture, snow and canopy anomalies from TWSa. Surface-water storage is not subtracted, so GWSa may include rivers, lakes, reservoirs and wetlands. It is not a direct well measurement.
 
 A trend can reveal a pattern. It cannot, alone, establish a cause.
 
@@ -80,7 +82,7 @@ We will not infer ownership, conflict, displacement or responsibility from a sat
 
 ## The interactive experience
 
-The Water Signal Explorer lets visitors select a study area, switch between total-water and groundwater anomalies, choose a time window, and inspect the monthly records.
+The Water Signal Explorer lets visitors select a study area, switch between total-water storage (TWSa) and the model-derived GWSa residual, choose a time window, and inspect the monthly records.
 
 The regression uses observed, non-filled values only. Gap-filled months remain visible and are counted separately. The trend is descriptive; it is not a significance test, forecast or causal model.
 
