@@ -67,3 +67,8 @@ Do not commit large raw NetCDF files to Git unless the team has explicitly selec
 
 ## Current status
 No Copernicus NetCDF file or STAC asset was acquired as part of this documentation change. Existing Explorer data remains the GEOGloWS-style CSV workflow. Copernicus ingestion is a separate pending task.
+
+
+## Related NASA GLDAS Noah 3.3 source
+
+AstrOsint01 also documents the complementary NASA PO.DAAC GLDAS Noah 3.3 monthly collection. It is a separate dataset and acquisition workflow; it does not replace the Copernicus C3S TWSA product. See [NASA GLDAS dataset profile](NASA_GLDAS_NOAH_33_01_DATASET_PROFILE.md) and [NASA GLDAS access and integration](NASA_GLDAS_NOAH_33_02_ACCESS_AND_INTEGRATION.md). Do not assume either dataset has been acquired until a granule, checksum and NetCDF validation manifest exist.
