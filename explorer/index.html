@@ -51,14 +51,14 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 </section>
 <section class="kpis" aria-label="Summary statistics">
 <div class="kpi"><span>Linear trend</span><strong id="trend">—</strong></div>
-<div class="kpi"><span>Available months</span><strong id="count">—</strong></div>
+<div class="kpi"><span>Observed months</span><strong id="count">—</strong></div>
 <div class="kpi"><span>First → last</span><strong id="change">—</strong></div>
 <div class="kpi"><span>Filled months</span><strong id="filled">—</strong></div>
 </section>
 <section class="panel">
 <div class="chart-head"><h2 id="chartTitle">Monthly total water storage anomaly</h2><div class="legend"><span class="key"><i class="swatch"></i>Observed / available</span><span class="key"><i class="swatch filled"></i>Gap-filled value</span></div></div>
 <div class="chart-wrap"><svg id="chart" viewBox="0 0 920 390" role="img" aria-label="Time series chart of selected water storage anomaly"></svg></div>
-<p class="caption" id="chartCaption">Values are anomalies in centimetres as described by the dataset repository. Gap-filled values are shown separately.</p>
+<p class="caption" id="chartCaption">Values are anomalies in centimetres as described by the dataset repository. The displayed trend is fitted to observed (non-filled) monthly values only; gap-filled values remain visible but are excluded from the regression.</p>
 </section>
 <section class="details">
 <div class="detail"><h3>How to read this</h3><p>The line shows the selected monthly anomaly series. The trend is an ordinary least-squares fit across the selected window; it is descriptive and is not, by itself, a significance test or a causal explanation.</p></div>
@@ -86,12 +86,13 @@ function parseCSV(text){
 function num(v){return v===''||v===undefined?null:Number(v)}
 function fmt(v,d=2){return Number.isFinite(v)?v.toFixed(d):'—'}
 function regression(rows,key){
- const valid=rows.map((r,i)=>({x:i,y:r[key]})).filter(p=>Number.isFinite(p.y));
+ const valid=rows.filter(r=>Number.isFinite(r[key])).map(r=>({x:monthIndex(r.date),y:r[key]}));
  if(valid.length<2)return null;
  const mx=valid.reduce((s,p)=>s+p.x,0)/valid.length,my=valid.reduce((s,p)=>s+p.y,0)/valid.length;
  let n=0,d=0;valid.forEach(p=>{n+=(p.x-mx)*(p.y-my);d+=(p.x-mx)**2});
  return d?n/d*12:null;
 }
+function monthIndex(date){const parts=date.split('-').map(Number);return parts[0]*12+(parts[1]||1)-1;}
 function setStatus(message,type){$('statusText').textContent=message;$('statusDot').className='dot '+(type||'')}
 function render(){
  const raw=datasets[region];if(!raw)return;
@@ -102,14 +103,15 @@ function render(){
   rows=rows.filter(r=>new Date(r.date)>=cut);
  }
  active=rows.filter(r=>r.plotValue!==null);
- const slope=regression(active,'plotValue'),real=active.filter(r=>!r.filled),fills=active.filter(r=>r.filled);
- const first=active[0],last=active[active.length-1],delta=first&&last?last.plotValue-first.plotValue:null;
+ const real=active.filter(r=>!r.filled),fills=active.filter(r=>r.filled);
+ const slope=regression(real,'value');
+ const first=real[0],last=real[real.length-1],delta=first&&last?last.value-first.value:null;
  $('trend').textContent=slope===null?'—':(slope>0?'+':'')+fmt(slope)+' cm/yr';
- $('count').textContent=String(active.length);
+ $('count').textContent=String(real.length);
  $('change').textContent=delta===null?'—':(delta>0?'+':'')+fmt(delta)+' cm';
  $('filled').textContent=fills.length+' / '+active.length;
  $('chartTitle').textContent=(variable==='TWSa'?'Total water storage':'Groundwater storage')+' anomaly · '+labels[region];
- $('chartCaption').textContent='Dataset units shown as centimetres (cm), consistent with the repository notes. Window: '+(active[0]?.date||'—')+' to '+(last?.date||'—')+'. Filled months: '+fills.length+'.';
+ $('chartCaption').textContent='Dataset units shown as centimetres (cm), consistent with the repository notes. Window: '+(active[0]?.date||'—')+' to '+(active[active.length-1]?.date||'—')+'. Trend uses '+real.length+' observed months; '+fills.length+' gap-filled months are excluded from the fit.';
  drawChart(active);
  $('rows').innerHTML=active.slice(-12).reverse().map(r=>'<tr><td>'+r.date+'</td><td>'+fmt(r.plotValue,3)+'</td><td>'+fmt(r.lower,3)+'</td><td>'+fmt(r.upper,3)+'</td><td>'+(r.filled?'Gap-filled':'Available')+'</td></tr>').join('')||'<tr><td colspan="5">No values in this window.</td></tr>';
 }
