@@ -39,6 +39,8 @@ The trend is descriptive. It is not a significance test, forecast or causal mode
 
 ## Key documents
 
+- [Data provenance and validation audit](docs/DATA_PROVENANCE_AUDIT.md) — inspected CSVs, confirmed fields, unresolved source metadata and next validation steps.
+
 | Document | Purpose |
 |---|---|
 | [STORY.md](STORY.md) | Narrative, case files and evidence boundaries |
