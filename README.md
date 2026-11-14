@@ -41,6 +41,9 @@ The trend is descriptive. It is not a significance test, forecast or causal mode
 ## Key documents
 
 - [Data provenance and validation audit](docs/DATA_PROVENANCE_AUDIT.md) — inspected CSVs, confirmed fields, unresolved source metadata and next validation steps.
+- [Copernicus TWSA — dataset profile](docs/COPERNICUS_TWSA_01_DATASET_PROFILE.md) — source identity, coverage, grid, variables and licence.
+- [Copernicus TWSA — access and integration](docs/COPERNICUS_TWSA_02_ACCESS_AND_INTEGRATION.md) — STAC/CDS discovery, acquisition workflow and ingestion checks.
+- [Copernicus TWSA — scientific use](docs/COPERNICUS_TWSA_03_SCIENTIFIC_USE.md) — interpretation, uncertainty, limitations and attribution.
 
 | Document | Purpose |
 |---|---|
