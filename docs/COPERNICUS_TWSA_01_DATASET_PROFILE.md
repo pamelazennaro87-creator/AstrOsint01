@@ -47,7 +47,10 @@ The CDS overview lists temporal gaps. Preserve missing months; do not silently i
 Confirm names, dimensions, attributes, fill values and units against the actual NetCDF and current Product User Guide before implementing ingestion.
 
 ## Official references
+
+**Primary STAC source URL (as supplied):** https://cds.climate.copernicus.eu/stac-browser/collections/satellite-terrestrial-water-storage?.language=en
 - [CDS dataset overview](https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage?tab=overview)
+- [ECMWF Data Stores STAC Catalogue API v1 — exact collection source supplied for this audit](https://cds.climate.copernicus.eu/stac-browser/collections/satellite-terrestrial-water-storage?.language=en)
 - [ECMWF STAC Browser collection](https://cds.climate.copernicus.eu/stac-browser/collections/satellite-terrestrial-water-storage)
 - [CDS download page](https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage?tab=download)
 - [Product documentation](https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage?tab=documentation)
