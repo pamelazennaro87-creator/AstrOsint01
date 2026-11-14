@@ -72,6 +72,7 @@ Suggested product citation:
 The PUGS also requires visible Copernicus attribution. Use the exact current wording from the guide, including the year and disclaimer that the European Commission and ECMWF are not responsible for downstream use.
 
 ## 8. Scientific references
+- [ECMWF Data Stores STAC Catalogue API v1 — collection source](https://cds.climate.copernicus.eu/stac-browser/collections/satellite-terrestrial-water-storage?.language=en)
 - [CDS overview and variable names](https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage?tab=overview)
 - [Known limitations and documentation](https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage?tab=documentation)
 - [C3S TWSA Product User Guide and Specification](https://confluence.ecmwf.int/spaces/CKB/pages/514757357/TWSA+v01+Product+User+Guide+and+Specification+PUGS)
