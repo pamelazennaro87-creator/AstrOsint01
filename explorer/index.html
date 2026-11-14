@@ -45,7 +45,7 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 <section class="panel" aria-label="Explorer controls">
 <div class="controls">
 <div><label for="region">Study area</label><select id="region"><option value="california">California Central Valley</option><option value="taoudeni">Taoudeni–Tanezrouft Basin (Sahel/Sahara)</option></select></div>
-<div><label>Variable</label><div class="segment"><button type="button" data-variable="TWSa" aria-pressed="true">TWS anomaly</button><button type="button" data-variable="GWSa" aria-pressed="false">Groundwater</button></div></div>
+<div><label>Variable</label><div class="segment"><button type="button" data-variable="TWSa" aria-pressed="true">TWS anomaly</button><button type="button" data-variable="GWSa" aria-pressed="false">GWS residual</button></div></div>
 <div><label for="period">Time window</label><select id="period"><option value="all">Full available record</option><option value="10">Last 10 years</option><option value="5">Last 5 years</option></select></div>
 </div>
 <div class="status" role="status" aria-live="polite"><span class="dot" id="statusDot"></span><span id="statusText">Loading source data…</span></div>
@@ -59,11 +59,11 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 <section class="panel">
 <div class="chart-head"><h2 id="chartTitle">Monthly total water storage anomaly</h2><div class="legend"><span class="key"><i class="swatch"></i>Observed / available</span><span class="key"><i class="swatch filled"></i>Gap-filled value</span></div></div>
 <div class="chart-wrap"><svg id="chart" viewBox="0 0 920 390" role="img" aria-label="Time series chart of selected water storage anomaly"></svg></div>
-<p class="caption" id="chartCaption">Values are anomalies in centimetres as described by the dataset repository. The displayed trend is fitted to observed (non-filled) monthly values only; gap-filled values remain visible but are excluded from the regression.</p>
+<p class="caption" id="chartCaption">Values are anomalies in centimetres (cm). The displayed trend is fitted to observed (non-filled) monthly values only; seasonal-model gap-filled values remain visible but are excluded from the regression. The GWSa series is a residual estimate and includes surface-water storage changes.</p>
 </section>
 <section class="details">
-<div class="detail"><h3>How to read this</h3><p>The line shows the selected monthly anomaly series. The trend is an ordinary least-squares fit across the selected window; it is descriptive and is not, by itself, a significance test or a causal explanation.</p></div>
-<div class="detail"><h3>Data integrity</h3><p>Where the original monthly value is missing, the repository provides a filled series and a fill flag. Filled values are marked with hollow amber points so they are not mistaken for direct observations.</p></div>
+<div class="detail"><h3>How to read this</h3><p>The line shows the selected monthly anomaly series. The trend is an ordinary least-squares fit across the selected window; it is descriptive and is not, by itself, a significance test or a causal explanation. Always compare the full record with the shorter windows: a recent recovery can coexist with a long-term decline.</p></div>
+<div class="detail"><h3>Data integrity and GWSa meaning</h3><p>Where the original monthly value is missing, the repository provides a seasonal-model filled series and a fill flag. Filled values are marked with hollow amber points and excluded from the trend fit. GEOGloWS derives GWSa by subtracting GLDAS soil-moisture, snow and canopy anomalies from TWSa. Surface water is not removed, so rivers, lakes, reservoirs and wetlands can contribute to GWSa. It is a model-derived residual, not a direct well measurement. <a href="https://training.geoglows.org/grace/background/deriving-groundwater/">Read the method</a>.</p></div>
 </section>
 <section class="panel"><h2 style="font-size:1.15rem;margin:0 0 12px">Selected data snapshot</h2><div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Value (cm)</th><th>Lower</th><th>Upper</th><th>Record</th></tr></thead><tbody id="rows"><tr><td colspan="5">Waiting for data…</td></tr></tbody></table></div><p class="caption">The table lists the most recent 12 records in the selected window. Values are rounded for display; source CSV retains original precision.</p></section>
 <section class="detail"><h3>Source and reproducibility</h3><p>Data files: <a href="https://github.com/AstrOsint01/nasa-water-storage-analysis">AstrOsint01 / nasa-water-storage-analysis</a>. README identifies NASA GRACE/GRACE-FO combined with GLDAS 2.1, accessed through the GEOGloWS GRACE Regional Analyst. <a href="https://apps.geoglows.org/grace-anomalies">Open the GRACE Regional Analyst</a> · <a href="https://grace.jpl.nasa.gov/">NASA GRACE Tellus</a>.</p></section>
@@ -111,7 +111,7 @@ function render(){
  $('count').textContent=String(real.length);
  $('change').textContent=delta===null?'—':(delta>0?'+':'')+fmt(delta)+' cm';
  $('filled').textContent=fills.length+' / '+active.length;
- $('chartTitle').textContent=(variable==='TWSa'?'Total water storage':'Groundwater storage')+' anomaly · '+labels[region];
+ $('chartTitle').textContent=(variable==='TWSa'?'Total water storage':'Groundwater residual (GWSa)')+' anomaly · '+labels[region];
  $('chartCaption').textContent='Dataset units shown as centimetres (cm), consistent with the repository notes. Window: '+(active[0]?.date||'—')+' to '+(active[active.length-1]?.date||'—')+'. Trend uses '+real.length+' observed months; '+fills.length+' gap-filled months are excluded from the fit.';
  drawChart(active);
  $('rows').innerHTML=active.slice(-12).reverse().map(r=>'<tr><td>'+r.date+'</td><td>'+fmt(r.plotValue,3)+'</td><td>'+fmt(r.lower,3)+'</td><td>'+fmt(r.upper,3)+'</td><td>'+(r.filled?'Gap-filled':'Available')+'</td></tr>').join('')||'<tr><td colspan="5">No values in this window.</td></tr>';
