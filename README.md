@@ -28,7 +28,7 @@ The decisive variable is not only climate — it is **who controls the water and
 |----------|-------------|
 | [**STORY.md**](STORY.md) | Divergent storytelling and visual narrative |
 | [**MISSION.md**](MISSION.md) | Official project mission and accessibility commitment |
-| [**Final Complete OSINT Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Fully verified research foundation with sources |
+| [**Research Audit & Corrections**](docs/RESEARCH_AUDIT_AND_CORRECTIONS.md) | Source-audited corrections, NASA product metadata and case-study limits |\n| [**Published Study Benchmarks**](data/PUBLISHED_STUDY_BENCHMARKS.csv) | Numeric results attributed to the original peer-reviewed studies (not team calculations) |\n| [**Legacy Research Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Earlier draft; read the research-audit warning before reusing claims |
 | [**Epilepsy & Photosensitive Safety**](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) | Dedicated safety section with WCAG standards and primary sources |
 
 ---
@@ -58,7 +58,7 @@ See the dedicated [Epilepsy Safety document](docs/ACCESSIBILITY_EPILEPSY_SAFE.md
 ---
 
 ### Status
-Research phase complete. Storytelling and visual narrative ready. Prototype development in progress.
+Research audit in progress. Published study results and the selected NASA product are documented; AstrOsint01's own regional time-series calculations must be distinguished from literature benchmarks. Prototype development is separate.
 
 ---
 
