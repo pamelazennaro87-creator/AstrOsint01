@@ -90,3 +90,94 @@ The separate 2025 Inner Niger Delta paper reports positive TWS trends of 7.3–9
 
 ---
 **Audit conclusion:** The two CSVs are valid structured files whose schema and 35-month missing-data pattern match GEOGloWS documentation. The public Git history verifies that they were uploaded on 14 November 2026, not when they were originally exported. Their exact region masks and export receipts remain missing. The Explorer may display them as provisional GEOGloWS-style exports with explicit limitations; it must not present the African CSV as Inner Niger Delta data or describe GWSa as a direct groundwater-well measurement.
+
+
+## 9. NASA and Copernicus data discovery — second-pass verification (15 November 2026)
+
+This section audits the proposed NASA data inventory separately from the existing GEOGloWS CSV provenance. A dataset being publicly catalogued does not mean that the current project has downloaded, subsetted, or independently reproduced it.
+
+### 9.1 JPL GRACE / GRACE-FO Mascon RL06.3Mv04
+
+**Verified product:** JPL GRACE and GRACE-FO Mascon Ocean, Ice, and Hydrology Equivalent Water Height, Release 06.3 Version 04.  
+**PO.DAAC short name:** `TELLUS_GRAC-GRFO_MASCON_GRID_RL06.3_V4`  
+**DOI:** [10.5067/TEMSC-3MJ634](https://doi.org/10.5067/TEMSC-3MJ634)  
+**Official landing page:** https://podaac.jpl.nasa.gov/dataset/TELLUS_GRAC-GRFO_MASCON_GRID_RL06.3_V4
+
+PO.DAAC confirms monthly global anomalies in equivalent water thickness, in centimetres, on a 0.5° latitude/longitude output grid, from April 2002 to present. The 0.5° grid spacing must not be described as the true independent spatial resolution: the mascon solution has much coarser effective spatial support (roughly 250–300 km; nominal mascon footprint around 3°). This is not a measurement of absolute water volume or a direct well-depth observation.
+
+The product page describes a monthly NetCDF file and provides direct-access, Earthdata Search and OPeNDAP routes. Bulk programmatic access uses NASA Earthdata authentication; therefore do not promise anonymous direct HTTPS downloads. The PO.DAAC page labels the standard mascon product as expert-use and points users toward the CRI-filtered alternative for less expert workflows. Confirm the exact product variant and corrections before analysis.
+
+### 9.2 GLDAS Noah 2.1 monthly
+
+**Verified product:** GLDAS Noah Land Surface Model L4 monthly 0.25° × 0.25° V2.1.  
+**Short name:** `GLDAS_NOAH025_M`  
+**Verified DOI:** [10.5067/SXAVCZFAQLNO](https://doi.org/10.5067/SXAVCZFAQLNO)  
+**NASA catalogue:** https://data.nasa.gov/dataset/gldas-noah-land-surface-model-l4-monthly-0-25-x-0-25-degree-v2-1-gldas-noah025-m-at-ges-di-23acd
+
+NASA's catalogue states that the monthly product is a temporal average of 3-hourly GLDAS-2.1 Noah output, generated with Noah 3.6 in LIS 7, distributed in NetCDF, with 36 land-surface fields and coverage beginning January 2000. GLDAS-2.1 is an open-loop land-surface model product, not a direct observation of groundwater.
+
+**Important DOI correction:** the proposed report lists DOI `10.5067/9GR6GJBW0QCX`. The official NASA catalogue entry for `GLDAS_NOAH025_M` identifies DOI `10.5067/SXAVCZFAQLNO`. Use the latter for this monthly product unless a separate NASA landing page proves that the former identifies a different, explicitly intended product.
+
+**Variable-name correction:** the soil-moisture field is `SoilMoi0_10cm_inst`, not `SoilM0_10cm_inst`. The model also has layer fields `SoilMoi10_40cm_inst`, `SoilMoi40_100cm_inst`, and `SoilMoi100_200cm_inst`; snow water equivalent is represented by `SWE_inst), and canopy water by `CanopInt_inst`. Check the product's own variable table and units before processing.
+
+Evapotranspiration (`Evap_tavg`) and precipitation (`Rainf_f_tavg`) are flux/rate variables. They are not storage components and must not be subtracted directly from GRACE TWSA. Likewise, GLDAS soil-moisture fields are state variables, not automatically anomalies on the same baseline as GRACE.
+
+### 9.3 Groundwater residual method — required safeguards
+
+A conceptual residual is:
+
+`GWSA_estimate = TWSA_GRACE - SMSA_model - SWEA_model - CWSA_model`
+
+This expression is not an executable recipe until all terms are harmonized. At minimum:
+
+- Convert every component to equivalent water height with consistent units.
+- Calculate anomalies against a clearly declared, common reference period.
+- Align exact monthly timestamps and account for GRACE missing months.
+- Regrid with a documented method and apply the same land mask and regional polygon.
+- Use compatible model versions and document the structural uncertainty introduced by the land model.
+- Include uncertainty propagation and sensitivity to the selected model.
+- Explicitly state that surface-water storage is not necessarily removed by this residual. A residual may therefore retain river, lake, reservoir and wetland signals.
+- Do not call the output a direct measurement of deep groundwater or a well observation.
+
+NASA/JPL also distributes a GRACE-month-aligned GLDAS Noah aggregate product (soil moisture + snow + canopy water) at 1° for comparison/evaluation. This may be a more internally aligned starting point than independently aggregating monthly GLDAS Noah 2.1 fields, but its product version, variable definitions, temporal coverage and suitability for the selected regional analysis must still be checked. Reference: https://podaac.jpl.nasa.gov/dataset/TELLUS_GLDAS-NOAH-3.3_TWS-ANOMALY_MONTHLY
+
+### 9.4 NASA VEDA / LIS-Noah-MP claim
+
+NASA's LIS/Noah-MP terrestrial-water-storage work is real: NASA describes a global monthly TWS anomaly dataset produced by assimilating GRACE/GRACE-FO TWS anomalies together with ESA CCI soil moisture and MODIS leaf-area-index information. NASA SVS documents a related regional visualization spanning 2003–2019.
+
+However, the supplied report does not identify an exact VEDA collection ID, DOI, STAC item, downloadable asset URL or versioned technical specification that verifies all of its specific claims (10 km resolution, September 2002–December 2021 coverage, COG/NetCDF formats and CC0 licence). These details remain **unverified** and must not be copied into the project as established metadata until the exact collection and licence are recovered.
+
+NASA context:
+- https://svs.gsfc.nasa.gov/5444
+- https://www.earthdata.nasa.gov/
+
+### 9.5 Copernicus Climate Data Store / GFZ C3S TWSA
+
+**Verified product DOI:** [10.5880/GFZ.C3S_TWSA_v1.0](https://doi.org/10.5880/GFZ.C3S_TWSA_v1.0)  
+**Current CDS catalogue:** https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage
+
+The GFZ dataset is based on COST-G RL02 GRACE/GRACE-FO Level-2B products and supplies monthly 0.5° gridded TWSA in NetCDF, including standard-deviation and filter-flag fields. The operational CDS catalogue describes the product as monthly TWSA in mm, with uncertainty and filter-strength information; the current catalogue coverage is April 2002 to September 2025 and the licence is CC-BY. The catalogue requires login/acceptance of licence terms for downloads; do not describe it as an anonymous no-account direct download.
+
+This is useful as a cross-product comparison against JPL mascons, but it is not an independent sensor measurement: it is another GRACE/GRACE-FO-derived product with a different processing chain. Differences should be interpreted as product/processing sensitivity, not as a direct validation against ground truth.
+
+### 9.6 Implementation decision for AstrOsint01
+
+Recommended sequence:
+
+1. Keep the current GEOGloWS CSV Explorer clearly labelled as provisional and preserve the provenance caveats in Sections 1–8.
+2. Obtain a reproducible regional TWSA subset from JPL PO.DAAC RL06.3Mv04 or the Copernicus C3S TWSA product; archive exact collection ID, version, retrieval date, selected files, region polygon, mask and processing script.
+3. Use GLDAS only for a clearly documented model-residual experiment, not as an unqualified direct groundwater measurement. Prefer a GRACE-aligned ancillary product where its provenance and compatibility are established.
+4. Do not integrate the proposed VEDA 10 km product until its exact dataset record, downloadable assets, period and licence are verified.
+5. Keep TWSA product intercomparison separate from GWSA residual estimation. Report both with uncertainty and do not imply that one validates the other against in-situ groundwater observations.
+
+### 9.7 Source references for this second-pass audit
+
+- NASA PO.DAAC JPL Mascon RL06.3Mv04: https://podaac.jpl.nasa.gov/dataset/TELLUS_GRAC-GRFO_MASCON_GRID_RL06.3_V4
+- NASA catalogue, GLDAS Noah monthly 0.25° V2.1: https://data.nasa.gov/dataset/gldas-noah-land-surface-model-l4-monthly-0-25-x-0-25-degree-v2-1-gldas-noah025-m-at-ges-di-23acd
+- NASA LDAS dataset overview: https://ldas.gsfc.nasa.gov/gldas/dataset
+- NASA/JPL GRACE-aligned GLDAS Noah aggregate: https://podaac.jpl.nasa.gov/dataset/TELLUS_GLDAS-NOAH-3.3_TWS-ANOMALY_MONTHLY
+- NASA SVS LIS/Noah-MP TWS regional views: https://svs.gsfc.nasa.gov/5444
+- GFZ Data Services C3S TWSA DOI: https://doi.org/10.5880/GFZ.C3S_TWSA_v1.0
+- Copernicus CDS TWSA catalogue and documentation: https://cds.climate.copernicus.eu/datasets/satellite-terrestrial-water-storage
+
+**Second-pass conclusion:** JPL RL06.3Mv04 and C3S TWSA are valid candidate TWSA products. The exact GLDAS Noah monthly DOI is corrected here to `10.5067/SXAVCZFAQLNO`; the proposed variable typo is corrected. The VEDA metadata claims are not sufficiently identified to verify. No new NASA/GLDAS/COG/NetCDF data have been downloaded or integrated by this audit. Dataset discovery is not evidence of project-level integration.
