@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071525">
+<title>AstrOsint01 | Water Signal Explorer</title>
+<style>
+:root{color-scheme:dark;--bg:#071525;--panel:#0d2033;--panel2:#112a40;--line:#24445c;--ink:#edf5fa;--muted:#9fb4c5;--cyan:#65d9d0;--blue:#75b9ed;--gold:#e9c98b;--red:#ee9a91}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#12334b 0,transparent 34%),var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--cyan);text-underline-offset:3px}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{width:min(1160px,calc(100% - 36px));margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:19px 0;border-bottom:1px solid var(--line)}
+.brand{font-size:.8rem;font-weight:850;letter-spacing:.18em}.brand span{color:var(--cyan)}.back{font-size:.86rem;text-decoration:none}
+.hero{padding:54px 0 30px}.eyebrow{font-size:.7rem;color:var(--cyan);font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:.98;letter-spacing:-.065em;margin:14px 0 15px}.hero p{max-width:760px;color:var(--muted);font-size:1.05rem;margin:0}
+.notice{margin:25px 0;padding:15px 18px;border:1px solid rgba(233,201,139,.45);border-left:3px solid var(--gold);background:rgba(233,201,139,.06);border-radius:9px;color:#e8dfcd;font-size:.88rem}
+.panel{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:17px;padding:22px;margin:18px 0}
+.controls{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:15px;align-items:end}
+label{display:block;color:var(--muted);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
+select,button{font:inherit;color:var(--ink);background:#091a2a;border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+select{width:100%;min-height:44px}
+.segment{display:flex;gap:7px;flex-wrap:wrap}.segment button{cursor:pointer;min-width:82px}.segment button[aria-pressed=true]{background:var(--cyan);color:#06212b;border-color:var(--cyan);font-weight:800}
+.status{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:.82rem;margin-top:15px}.dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}.dot.ok{background:var(--cyan)}.dot.error{background:var(--red)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:17px 0}
+.kpi{padding:16px;border:1px solid var(--line);border-radius:12px;background:rgba(5,18,30,.5);min-width:0}
+.kpi span{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em}.kpi strong{display:block;font-size:1.35rem;letter-spacing:-.03em;margin-top:6px;overflow-wrap:anywhere}
+.chart-head{display:flex;justify-content:space-between;align-items:start;gap:15px;flex-wrap:wrap}.chart-head h2{font-size:1.25rem;margin:0}.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.78rem}.key{display:inline-flex;align-items:center;gap:7px}.swatch{width:17px;height:3px;background:var(--cyan);display:inline-block}.swatch.filled{background:repeating-linear-gradient(90deg,var(--gold) 0 4px,transparent 4px 7px)}
+.chart-wrap{margin-top:15px;overflow-x:auto}svg{display:block;width:100%;min-width:580px;height:auto;overflow:visible}.gridline{stroke:#29465b;stroke-width:1}.axis{fill:#9fb4c5;font-size:11px}.series{fill:none;stroke:var(--cyan);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}.filled-dot{fill:var(--bg);stroke:var(--gold);stroke-width:1.5}.real-dot{fill:var(--cyan);stroke:var(--bg);stroke-width:1}
+.caption{color:var(--muted);font-size:.78rem;margin:13px 0 0}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:15px}.detail{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:19px}.detail h3{font-size:1rem;margin:0 0 8px}.detail p{margin:0;color:var(--muted);font-size:.88rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:650}td{font-variant-numeric:tabular-nums}
+footer{padding:25px 0 45px;color:var(--muted);font-size:.8rem}.foot{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.safe{position:fixed;right:14px;bottom:14px;background:#f1e6cf;color:#172532;border:0;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;z-index:5}
+body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(max-width:760px){.controls{grid-template-columns:1fr 1fr}.controls>div:first-child{grid-column:1/-1}.kpis{grid-template-columns:1fr 1fr}.details{grid-template-columns:1fr}.panel{padding:16px}.hero{padding-top:40px}}
+@media(max-width:420px){.controls{grid-template-columns:1fr}.controls>div:first-child{grid-column:auto}.kpi strong{font-size:1.15rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap top"><div class="brand">ASTRO<span>SINT</span> 01 / DATA LAB</div><a class="back" href="../index.html">← Back to project</a></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">Interactive research prototype · GRACE / GRACE-FO</div><h1>Read the water<br>signal.</h1><p>Explore monthly terrestrial water storage and groundwater anomalies for two study areas. Switch region, variable and time window; inspect the observations and the data gaps behind the line.</p></section>
+<div class="notice"><strong>Geographic scope matters.</strong> The second CSV supplied by the project is labelled <em>Taoudeni–Tanezrouft Basin</em>, not the Inner Niger Delta boundary. This explorer preserves the dataset's actual name; it must not be interpreted as a precise measurement of the Inner Niger Delta alone. GRACE has a coarse spatial footprint (roughly 300 km).</div>
+<section class="panel" aria-label="Explorer controls">
+<div class="controls">
+<div><label for="region">Study area</label><select id="region"><option value="california">California Central Valley</option><option value="taoudeni">Taoudeni–Tanezrouft Basin (Sahel/Sahara)</option></select></div>
+<div><label>Variable</label><div class="segment"><button type="button" data-variable="TWSa" aria-pressed="true">TWS anomaly</button><button type="button" data-variable="GWSa" aria-pressed="false">Groundwater</button></div></div>
+<div><label for="period">Time window</label><select id="period"><option value="all">Full available record</option><option value="10">Last 10 years</option><option value="5">Last 5 years</option></select></div>
+</div>
+<div class="status" role="status" aria-live="polite"><span class="dot" id="statusDot"></span><span id="statusText">Loading source data…</span></div>
+</section>
+<section class="kpis" aria-label="Summary statistics">
+<div class="kpi"><span>Linear trend</span><strong id="trend">—</strong></div>
+<div class="kpi"><span>Available months</span><strong id="count">—</strong></div>
+<div class="kpi"><span>First → last</span><strong id="change">—</strong></div>
+<div class="kpi"><span>Filled months</span><strong id="filled">—</strong></div>
+</section>
+<section class="panel">
+<div class="chart-head"><h2 id="chartTitle">Monthly total water storage anomaly</h2><div class="legend"><span class="key"><i class="swatch"></i>Observed / available</span><span class="key"><i class="swatch filled"></i>Gap-filled value</span></div></div>
+<div class="chart-wrap"><svg id="chart" viewBox="0 0 920 390" role="img" aria-label="Time series chart of selected water storage anomaly"></svg></div>
+<p class="caption" id="chartCaption">Values are anomalies in centimetres as described by the dataset repository. Gap-filled values are shown separately.</p>
+</section>
+<section class="details">
+<div class="detail"><h3>How to read this</h3><p>The line shows the selected monthly anomaly series. The trend is an ordinary least-squares fit across the selected window; it is descriptive and is not, by itself, a significance test or a causal explanation.</p></div>
+<div class="detail"><h3>Data integrity</h3><p>Where the original monthly value is missing, the repository provides a filled series and a fill flag. Filled values are marked with hollow amber points so they are not mistaken for direct observations.</p></div>
+</section>
+<section class="panel"><h2 style="font-size:1.15rem;margin:0 0 12px">Selected data snapshot</h2><div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Value (cm)</th><th>Lower</th><th>Upper</th><th>Record</th></tr></thead><tbody id="rows"><tr><td colspan="5">Waiting for data…</td></tr></tbody></table></div><p class="caption">The table lists the most recent 12 records in the selected window. Values are rounded for display; source CSV retains original precision.</p></section>
+<section class="detail"><h3>Source and reproducibility</h3><p>Data files: <a href="https://github.com/AstrOsint01/nasa-water-storage-analysis">AstrOsint01 / nasa-water-storage-analysis</a>. README identifies NASA GRACE/GRACE-FO combined with GLDAS 2.1, accessed through the GEOGloWS GRACE Regional Analyst. <a href="https://apps.geoglows.org/grace-anomalies">Open the GRACE Regional Analyst</a> · <a href="https://grace.jpl.nasa.gov/">NASA GRACE Tellus</a>.</p></section>
+</main>
+<footer class="wrap"><div class="foot"><span>AstrOsint01 · NASA Space Apps Challenge 2026</span><span>Independent exploration. Shared evidence. Verifiable conclusions.</span></div></footer>
+<button class="safe" id="safeToggle" type="button" aria-pressed="false">Safe Mode: off</button>
+<script>
+(function(){
+'use strict';
+const sources={
+ california:'https://raw.githubusercontent.com/AstrOsint01/nasa-water-storage-analysis/main/central_valley.csv.csv',
+ taoudeni:'https://raw.githubusercontent.com/AstrOsint01/nasa-water-storage-analysis/main/taoudeni-tanezrouft%20basin.csv.csv'
+};
+const labels={california:'California Central Valley',taoudeni:'Taoudeni–Tanezrouft Basin'};
+let datasets={},region='california',variable='TWSa',period='all',active=[];
+const $=id=>document.getElementById(id);
+function parseCSV(text){
+ const lines=text.trim().split(/\r?\n/),head=lines.shift().split(',');
+ return lines.map(line=>{const cells=line.split(','),o={};head.forEach((h,i)=>o[h]=cells[i]??'');return o;}).filter(r=>r.Date);
+}
+function num(v){return v===''||v===undefined?null:Number(v)}
+function fmt(v,d=2){return Number.isFinite(v)?v.toFixed(d):'—'}
+function regression(rows,key){
+ const valid=rows.map((r,i)=>({x:i,y:r[key]})).filter(p=>Number.isFinite(p.y));
+ if(valid.length<2)return null;
+ const mx=valid.reduce((s,p)=>s+p.x,0)/valid.length,my=valid.reduce((s,p)=>s+p.y,0)/valid.length;
+ let n=0,d=0;valid.forEach(p=>{n+=(p.x-mx)*(p.y-my);d+=(p.x-mx)**2});
+ return d?n/d*12:null;
+}
+function setStatus(message,type){$('statusText').textContent=message;$('statusDot').className='dot '+(type||'')}
+function render(){
+ const raw=datasets[region];if(!raw)return;
+ let rows=raw.map(r=>({date:r.Date,value:num(r[variable]),filledValue:num(r[variable+'_filled']),lower:num(r[variable+'_lower']),upper:num(r[variable+'_upper']),isFilled:r[variable+'_is_filled']==='1'}));
+ rows=rows.map(r=>({...r,plotValue:r.value!==null?r.value:r.filledValue,filled:r.value===null||r.isFilled}));
+ if(period!=='all'){
+  const last=rows[rows.length-1],cut=new Date(last.date);cut.setFullYear(cut.getFullYear()-Number(period));
+  rows=rows.filter(r=>new Date(r.date)>=cut);
+ }
+ active=rows.filter(r=>r.plotValue!==null);
+ const slope=regression(active,'plotValue'),real=active.filter(r=>!r.filled),fills=active.filter(r=>r.filled);
+ const first=active[0],last=active[active.length-1],delta=first&&last?last.plotValue-first.plotValue:null;
+ $('trend').textContent=slope===null?'—':(slope>0?'+':'')+fmt(slope)+' cm/yr';
+ $('count').textContent=String(active.length);
+ $('change').textContent=delta===null?'—':(delta>0?'+':'')+fmt(delta)+' cm';
+ $('filled').textContent=fills.length+' / '+active.length;
+ $('chartTitle').textContent=(variable==='TWSa'?'Total water storage':'Groundwater storage')+' anomaly · '+labels[region];
+ $('chartCaption').textContent='Dataset units shown as centimetres (cm), consistent with the repository notes. Window: '+(active[0]?.date||'—')+' to '+(last?.date||'—')+'. Filled months: '+fills.length+'.';
+ drawChart(active);
+ $('rows').innerHTML=active.slice(-12).reverse().map(r=>'<tr><td>'+r.date+'</td><td>'+fmt(r.plotValue,3)+'</td><td>'+fmt(r.lower,3)+'</td><td>'+fmt(r.upper,3)+'</td><td>'+(r.filled?'Gap-filled':'Available')+'</td></tr>').join('')||'<tr><td colspan="5">No values in this window.</td></tr>';
+}
+function drawChart(data){
+ const svg=$('chart'),W=920,H=390,L=65,R=22,T=22,B=48,pw=W-L-R,ph=H-T-B;
+ if(data.length<2){svg.innerHTML='<text x="460" y="190" text-anchor="middle" fill="#9fb4c5">Not enough data to draw a time series.</text>';return}
+ const vals=data.map(d=>d.plotValue),min=Math.min(...vals),max=Math.max(...vals),pad=Math.max((max-min)*.12,.5),lo=min-pad,hi=max+pad;
+ const x=i=>L+i/(data.length-1)*pw,y=v=>T+(hi-v)/(hi-lo)*ph;
+ let parts=[];
+ for(let j=0;j<=4;j++){const v=lo+(hi-lo)*j/4,yy=y(v);parts.push('<line class="gridline" x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'"/><text class="axis" x="'+(L-10)+'" y="'+(yy+4)+'" text-anchor="end">'+fmt(v,1)+'</text>')}
+ const ticks=[0,Math.floor((data.length-1)/2),data.length-1];ticks.forEach(i=>{parts.push('<text class="axis" x="'+x(i)+'" y="'+(H-15)+'" text-anchor="middle">'+data[i].date.slice(0,4)+'</text>')});
+ let path='';data.forEach((d,i)=>{path+=(i?' L':'M')+x(i).toFixed(1)+' '+y(d.plotValue).toFixed(1)});
+ parts.push('<path class="series" d="'+path+'"/>');
+ data.forEach((d,i)=>{const cx=x(i),cy=y(d.plotValue);parts.push('<circle class="'+(d.filled?'filled-dot':'real-dot')+'" cx="'+cx+'" cy="'+cy+'" r="'+(d.filled?2.8:1.8)+'"><title>'+d.date+': '+fmt(d.plotValue,3)+' cm ('+(d.filled?'gap-filled':'available')+')</title></circle>')});
+ parts.push('<text class="axis" x="'+L+'" y="13">ANOMALY (cm)</text>');
+ svg.innerHTML=parts.join('');
+}
+async function load(key){
+ if(datasets[key])return;
+ setStatus('Fetching '+labels[key]+' CSV…');
+ try{
+  const response=await fetch(sources[key]);if(!response.ok)throw new Error('HTTP '+response.status);
+  const text=await response.text();const rows=parseCSV(text);
+  if(!rows.length||!rows[0].Date)throw new Error('CSV format not recognized');
+  datasets[key]=rows;setStatus('Source loaded · '+rows.length+' monthly rows · '+labels[key],'ok');
+ }catch(err){setStatus('Could not load the CSV. Open the source repository to inspect it. ('+err.message+')','error');$('chart').innerHTML='<text x="460" y="190" text-anchor="middle" fill="#ee9a91">Data unavailable. Check the source CSV link or network connection.</text>';throw err}
+}
+$('region').addEventListener('change',async e=>{region=e.target.value;try{await load(region);render()}catch(e){}});
+$('period').addEventListener('change',e=>{period=e.target.value;render()});
+document.querySelectorAll('[data-variable]').forEach(btn=>btn.addEventListener('click',()=>{variable=btn.dataset.variable;document.querySelectorAll('[data-variable]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));render()}));
+$('safeToggle').addEventListener('click',()=>{const on=document.body.classList.toggle('safe-mode');$('safeToggle').setAttribute('aria-pressed',String(on));$('safeToggle').textContent=on?'Safe Mode: on':'Safe Mode: off'});
+load(region).then(render).catch(()=>{});
+})();
+</script>
+</body></html>
