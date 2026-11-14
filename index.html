@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#071a20">
+  <meta name="theme-color" content="#071525">
   <meta name="description" content="AstrOsint01 investigates opposite terrestrial water-storage trends using NASA GRACE and GRACE-FO data.">
   <title>AstrOsint01 — Earth in Transition</title>
   <style>
-    :root{color-scheme:dark;--bg:#071a20;--panel:#0d272e;--panel2:#102f36;--ink:#edf7f4;--muted:#aec5c1;--aqua:#71d8c4;--sand:#e5c58b;--line:#285057;--max:1160px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#16434a 0,transparent 36%),var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-    a{color:var(--aqua);text-underline-offset:4px}a:hover{color:#b3f1e4}a:focus-visible,button:focus-visible{outline:3px solid var(--sand);outline-offset:4px}
+    :root{color-scheme:dark;--bg:#071525;--panel:#0d2033;--panel2:#112a40;--ink:#edf7f4;--muted:#aec5c1;--aqua:#75b9ed;--sand:#e5c58b;--line:#24445c;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#12334b 0,transparent 36%),var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    a{color:var(--aqua);text-underline-offset:4px}a:hover{color:#d3ebff}a:focus-visible,button:focus-visible{outline:3px solid var(--sand);outline-offset:4px}
     .skip{position:absolute;left:-9999px;top:8px;background:#fff;color:#000;padding:10px;z-index:9}.skip:focus{left:8px}
     .wrap{width:min(var(--max),calc(100% - 40px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
     .brand{font-weight:800;letter-spacing:.14em;font-size:.9rem}.brand span{color:var(--aqua)}nav{display:flex;flex-wrap:wrap;gap:18px}nav a{text-decoration:none;color:var(--muted);font-size:.92rem}
@@ -37,7 +37,7 @@
 <header class="wrap top">
   <div class="brand">ASTRO<span>SINT</span> 01</div>
   <nav aria-label="Main navigation">
-    <a href="#investigation">Investigation</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#accessibility">Accessibility</a><a href="#team">Team</a>
+    <a href="#investigation">Investigation</a><a href="explorer/">Data Explorer</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#accessibility">Accessibility</a><a href="#team">Team</a>
   </nav>
 </header>
 <main id="main">
@@ -46,7 +46,7 @@
     <h1>Earth in Transition.<br><em>Who controls the change?</em></h1>
     <p class="lead">Two regions. One satellite record. Opposite water futures. AstrOsint01 turns NASA Earth-observation data into an open, accessible investigation of environmental change and its human consequences.</p>
     <div class="actions">
-      <a class="btn primary" href="#investigation">Explore the investigation</a>
+      <a class="btn primary" href="explorer/">Open the Data Explorer ↗</a><a class="btn secondary" href="#investigation">Explore the investigation</a>
       <a class="btn secondary" href="https://github.com/pamelazennaro87-creator/AstrOsint01">Open the GitHub repository ↗</a>
     </div>
     <p class="thesis">A trend line tells us what is changing. An investigation asks who benefits, who bears the risk, and what independent evidence supports the conclusion.</p>
@@ -70,6 +70,19 @@
       </article>
     </div>
     <div class="notice"><strong>Evidence discipline:</strong> satellite observations do not, by themselves, prove ownership, causation or individual responsibility. We separate measured signals, independent corroboration, interpretation and open questions.</div>
+  </div></section>
+
+
+  <section id="explorer"><div class="wrap">
+    <div class="eyebrow">02 / Interactive data lab</div><h2>Go beyond the story. Explore the signal.</h2>
+    <p class="sub">Switch between the available study-area datasets, inspect monthly total-water and groundwater anomalies, compare time windows and distinguish source observations from gap-filled values.</p>
+    <div class="card" style="margin-top:26px;background:linear-gradient(145deg,#112a40,#0d2033);border-color:#24445c">
+      <div class="tag">Live prototype · CSV-backed</div>
+      <h3 style="margin-top:12px">Water Signal Explorer</h3>
+      <p>The interactive research prototype reads the project's published monthly CSV files and renders the selected time series, descriptive trend and data-quality markers.</p>
+      <div class="actions"><a class="btn primary" href="explorer/">Launch the Data Explorer ↗</a><a class="btn secondary" href="https://github.com/AstrOsint01/nasa-water-storage-analysis">Open source datasets ↗</a></div>
+      <p class="small" style="margin-top:16px">Geographic note: the second source file is labelled Taoudeni–Tanezrouft Basin. It is not a precise Inner Niger Delta boundary; the Explorer preserves the dataset's actual name.</p>
+    </div>
   </div></section>
 
   <section id="method"><div class="wrap">
