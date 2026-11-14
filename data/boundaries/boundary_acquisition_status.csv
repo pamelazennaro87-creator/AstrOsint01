@@ -1,0 +1,4 @@
+geometry,source,source_url,format_or_endpoint,status,limitation
+California Central Valley,DWR i08 C2VSimFG Boundary,https://catalog.data.gov/dataset/i08-c2vsimfg-boundary,GeoJSON and Shapefile ZIP endpoints,download endpoint verified; geometry not yet committed,Model domain based on Bulletin 118 basin boundaries generalized for model node spacing
+Inner Niger Delta,Ramsar Site 1365,https://rsis.ramsar.org/ris/1365,Official 2025 RIS PDF and site record,official record verified; GIS polygon pending,Ramsar designated site is not automatically identical to all hydrological or annual floodplain boundaries
+Upper Niger Basin,IRD DataSuds SIEREM Niger basin GIS v2,https://doi.org/10.23708/FWC87Z,SIEREM_FleuveNiger_Basins.zip listed in public dataset,downloadable archive identified; upstream sub-basin selection pending,Do not substitute the whole Niger Basin; select contributing sub-basins by network topology and outlet definition

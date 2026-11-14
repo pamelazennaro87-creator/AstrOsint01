@@ -5,60 +5,41 @@ NASA Space Apps Challenge 2026 — *Be An Earth System Trend Detective!*
 
 ---
 
-### Project Focus
+### Project focus
+
 **Earth in Transition: Opposite Water Futures — Who Controls the Change?**
 
-We investigate opposite long-term terrestrial water storage trends using NASA GRACE / GRACE-FO data:
+We investigate how regional water-storage changes intersect with human systems. Published studies report groundwater-storage depletion in California’s Central Valley and increasing total terrestrial water storage in the Inner Niger Delta. These published estimates use different variables and methods; they are not a direct numerical comparison and are not presented as AstrOsint01 calculations.
 
-- **California Central Valley** → strong groundwater depletion under concentrated corporate/institutional control  
-- **Inner Niger Delta (Sahel)** → increasing water storage with agricultural opportunity + elevated flood risk under local/contested control
+### Core methodology
 
-The decisive variable is not only climate — it is **who controls the water and for whose benefit**.
-
----
-
-### Core Methodology
 **DETECT → COMPARE → VERIFY → EXPLORE**
 
----
-
-### Key Documents (for Judges)
+### Research documents
 
 | Document | Description |
-|----------|-------------|
-| [**STORY.md**](STORY.md) | Divergent storytelling and visual narrative |
-| [**MISSION.md**](MISSION.md) | Official project mission and accessibility commitment |
-| [**Final Complete OSINT Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Fully verified research foundation with sources |
-| [**Epilepsy & Photosensitive Safety**](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) | Dedicated safety section with WCAG standards and primary sources |
+|---|---|
+| [Research dossier](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Revised source-audited case-study findings and limitations |
+| [Research audit & corrections](docs/RESEARCH_AUDIT_AND_CORRECTIONS.md) | Detailed source audit, scientific corrections and claim review |
+| [Published study benchmarks](data/PUBLISHED_STUDY_BENCHMARKS.csv) | Numeric findings attributed to the peer-reviewed papers; not raw monthly data or team calculations |
+| [Data provenance](data/README.md) | NASA/JPL product metadata, access and reproducibility requirements |
+| [Evidence register](docs/EVIDENCE_REGISTER_TEMPLATE.md) | Claim-level source tracking and review rules |
+| [Scientific validation guide](docs/SCIENTIFIC_VALIDATION_AND_PROTOTYPE_GUIDE.md) | Reproducible analysis requirements and scientific guardrails |
+| [Mission](MISSION.md) | Project mission and accessibility commitment |
+| [Story](STORY.md) | Project narrative |
+| [Accessibility notes](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) | Accessibility design and verification checklist |
 
----
+### Visual assets
 
-### Visual Assets
+Visual concepts and references are documented in the repository. Treat an asset as part of the repository only when the actual file, provenance and alt text are committed at its referenced path.
 
-Three high-resolution photorealistic images support the narrative:
+### Accessibility
 
-1. **California Central Valley** — Dense almond orchards and irrigation infrastructure (landscape of extraction and concentrated control)
-2. **Inner Niger Delta** — Seasonal wetland expansion across the Sahel (increase + flood paradox)
-3. **Opposite Futures** — Split visual of dry cracked land versus flooded wetland (the core metaphor)
+The project intends to support reduced motion, keyboard navigation, screen-reader use, accessible data tables and optional user-controlled sonification. These are design requirements, not a blanket claim of epilepsy safety or full WCAG conformance. Feature status must distinguish implemented, tested, planned and not tested.
 
-These images are available in the conversation assets and will be integrated into the interactive prototype and presentation materials.
+### Research status
 
----
-
-### Accessibility Commitment
-
-- Designed to be usable by people with **photosensitive epilepsy**
-- Full support for `prefers-reduced-motion`
-- Optional Safe Mode that removes remaining animations
-- Data tables and screen-reader compatibility for every visualization
-- Optional data sonification under consideration
-
-See the dedicated [Epilepsy Safety document](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) for standards, thresholds and references.
-
----
-
-### Status
-Research phase complete. Storytelling and visual narrative ready. Prototype development in progress.
+Published study results and the selected NASA/JPL product metadata are documented. AstrOsint01's own regional monthly time series and trend calculations must be distinguished from literature benchmarks and should only be claimed once the source data, region masks, processing code and outputs are archived and reproducible. Prototype development is separate.
 
 ---
 
