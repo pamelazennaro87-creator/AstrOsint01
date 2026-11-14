@@ -1,66 +1,57 @@
 # AstrOsint01
 
-**Interactive accessible OSINT spatial experience**  
+**Accessible, evidence-first Earth-observation investigation**  
 NASA Space Apps Challenge 2026 — *Be An Earth System Trend Detective!*
 
----
+## Project focus
 
-### Project Focus
-**Earth in Transition: Opposite Water Futures — Who Controls the Change?**
+**Earth is changing. Follow the water.**
 
-We investigate opposite long-term terrestrial water storage trends using NASA GRACE / GRACE-FO data:
+AstrOsint01 explores monthly terrestrial-water-storage and groundwater anomaly series derived from GRACE / GRACE-FO data. The experience combines an interactive data explorer with an OSINT-style evidence workflow:
 
-- **California Central Valley** → strong groundwater depletion under concentrated corporate/institutional control  
-- **Inner Niger Delta (Sahel)** → increasing water storage with agricultural opportunity + elevated flood risk under local/contested control
-
-The decisive variable is not only climate — it is **who controls the water and for whose benefit**.
-
----
-
-### Core Methodology
 **DETECT → COMPARE → VERIFY → EXPLORE**
 
----
+### Current study areas
 
-### Key Documents (for Judges)
+- **California Central Valley** — the project CSV shows a negative long-term signal in total-water and groundwater anomalies. Independent research documents groundwater depletion and land subsidence.
+- **Taoudeni–Tanezrouft Basin** — the second CSV is labelled for this basin. Its exported series shows near-flat total-water storage and a slightly negative groundwater trend.
 
-| Document | Description |
-|----------|-------------|
-| [**STORY.md**](STORY.md) | Divergent storytelling and visual narrative |
-| [**MISSION.md**](MISSION.md) | Official project mission and accessibility commitment |
-| [**Final Complete OSINT Package**](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Fully verified research foundation with sources |
-| [**Epilepsy & Photosensitive Safety**](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) | Dedicated safety section with WCAG standards and primary sources |
+**Important geographic limitation:** Taoudeni–Tanezrouft is not interchangeable with the Inner Niger Delta. A separate peer-reviewed Inner Niger Delta study cited in the research dossier is contextual literature, not the result of this CSV. We do not present the two as the same measurement.
 
----
+## Explore
 
-### Visual Assets
+- [Open the website](https://pamelazennaro87-creator.github.io/AstrOsint01/)
+- [Launch the Water Signal Explorer](https://pamelazennaro87-creator.github.io/AstrOsint01/explorer/)
+- [Open the source code](https://github.com/pamelazennaro87-creator/AstrOsint01)
+- [Open the monthly source datasets](https://github.com/AstrOsint01/nasa-water-storage-analysis)
 
-Three high-resolution photorealistic images support the narrative:
+## Method and evidence
 
-1. **California Central Valley** — Dense almond orchards and irrigation infrastructure (landscape of extraction and concentrated control)
-2. **Inner Niger Delta** — Seasonal wetland expansion across the Sahel (increase + flood paradox)
-3. **Opposite Futures** — Split visual of dry cracked land versus flooded wetland (the core metaphor)
+The Explorer:
+- reads monthly CSV files from the project data repository;
+- lets visitors switch region, variable and time window;
+- displays the time series and a descriptive ordinary least-squares trend;
+- fits the trend to observed, non-filled values only;
+- shows gap-filled months separately;
+- states geographic and spatial-resolution limitations.
 
-These images are available in the conversation assets and will be integrated into the interactive prototype and presentation materials.
+The trend is descriptive. It is not a significance test, forecast or causal model. GRACE's coarse spatial footprint requires complementary local evidence for finer-scale interpretation.
 
----
+## Key documents
 
-### Accessibility Commitment
+| Document | Purpose |
+|---|---|
+| [STORY.md](STORY.md) | Narrative, case files and evidence boundaries |
+| [MISSION.md](MISSION.md) | Mission, method and accessibility goals |
+| [Research dossier](docs/FINAL_COMPLETE_OSINT_PACKAGE.md) | Working research claims, sources and verification status |
+| [Accessibility and photosensitive safety](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) | Design safeguards and testing commitments |
 
-- Designed to be usable by people with **photosensitive epilepsy**
-- Full support for `prefers-reduced-motion`
-- Optional Safe Mode that removes remaining animations
-- Data tables and screen-reader compatibility for every visualization
-- Optional data sonification under consideration
+## Accessibility
 
-See the dedicated [Epilepsy Safety document](docs/ACCESSIBILITY_EPILEPSY_SAFE.md) for standards, thresholds and references.
+We prioritize keyboard navigation, readable structure, reduced motion, no flashing effects, data tables and text explanations alongside charts. Safe Mode is available in the site and Explorer. These are design safeguards, not clinical certification; testing with assistive technologies and users remains necessary.
 
----
+## Current status
 
-### Status
-Research phase complete. Storytelling and visual narrative ready. Prototype development in progress.
+The website and CSV-backed Explorer are working research prototypes. Geographic alignment, source traceability for all secondary claims, statistical significance testing and user accessibility testing remain active validation tasks.
 
----
-
-**AstrOsint01 OSINT Cell**  
-NASA Space Apps Challenge 2026
+**Independent exploration. Shared evidence. Verifiable conclusions.**
