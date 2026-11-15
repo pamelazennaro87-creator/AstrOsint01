@@ -108,7 +108,7 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 </section>
 
 <div class="notice">
-  <strong>Prototype with representative series.</strong> This explorer uses embedded, scientifically-plausible monthly anomaly series for demonstration (Central Valley declining signal · Taoudeni–Tanezrouft near-flat / weakly negative). No external data files are required. Trends are descriptive ordinary-least-squares slopes, not significance tests or forecasts.
+  <strong>Prototype with representative series.</strong> This explorer uses embedded, scientifically-plausible monthly anomaly series generated for demonstration (Central Valley declining signal · Taoudeni–Tanezrouft near-flat / weakly negative). No external data files are required. Trends are descriptive ordinary-least-squares slopes, not significance tests or forecasts.
 </div>
 
 <section class="panel" aria-label="Explorer controls">
@@ -257,9 +257,51 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 (function(){
 'use strict';
 
-const DATA = {"california":{"TWSa":[{"date":"2002-04","value":1.043,"lower":-0.057,"upper":2.143,"filled":false},{"date":"2002-05","value":2.466,"lower":1.366,"upper":3.566,"filled":true},{"date":"2002-06","value":3.89,"lower":2.79,"upper":4.99,"filled":false},{"date":"2002-07","value":6.036,"lower":4.936,"upper":7.136,"filled":false}],"GWSa":[]},"taoudeni":{"TWSa":[],"GWSa":[]}};
+// Lightweight seeded PRNG (Mulberry32)
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 
-// NOTE: Full data will be injected in final version - this is truncated for tool call size. Real push uses complete file.
+function generateSeries(config){
+  const {trendPerYear, seasonalAmp, noise, fillRate, seed, n=291} = config;
+  const rand = mulberry32(seed);
+  const startYear=2002, startMonth=4;
+  const rows = [];
+  for(let i=0;i<n;i++){
+    const totalMonths = startMonth-1 + i;
+    const y = startYear + Math.floor(totalMonths/12);
+    const m = (totalMonths % 12) + 1;
+    const date = y + '-' + String(m).padStart(2,'0');
+    const t = i / 12;
+    const seasonal = seasonalAmp * Math.sin(2 * Math.PI * i / 12);
+    const noiseVal = (rand()*2-1) * noise;
+    let value = trendPerYear * t + seasonal + noiseVal;
+    const filled = rand() < fillRate;
+    rows.push({date, value, filled, lower:0, upper:0});
+  }
+  for(let i=1;i<n-1;i++){
+    if(rows[i].filled){
+      rows[i].value = (rows[i-1].value + rows[i+1].value) / 2;
+    }
+  }
+  for(const r of rows){
+    r.lower = r.value - 1.1;
+    r.upper = r.value + 1.1;
+    r.value = Math.round(r.value*1000)/1000;
+    r.lower = Math.round(r.lower*1000)/1000;
+    r.upper = Math.round(r.upper*1000)/1000;
+  }
+  return rows;
+}
+
+const DATA = {
+  california: {
+    TWSa: generateSeries({trendPerYear:-1.45, seasonalAmp:3.1, noise:2.0, fillRate:0.12, seed:42}),
+    GWSa: generateSeries({trendPerYear:-1.62, seasonalAmp:2.7, noise:1.85, fillRate:0.12, seed:43})
+  },
+  taoudeni: {
+    TWSa: generateSeries({trendPerYear:-0.17, seasonalAmp:1.7, noise:1.35, fillRate:0.10, seed:44}),
+    GWSa: generateSeries({trendPerYear:-0.33, seasonalAmp:1.4, noise:1.25, fillRate:0.10, seed:45})
+  }
+};
 
 const labels = {
   california: 'California Central Valley',
@@ -307,56 +349,50 @@ function filterPeriod(rows){
   return rows.filter(r => monthIndex(r.date) >= cutoff);
 }
 
-function setStatus(text, ok=true){
+function setStatus(text){
   $('statusText').textContent = text;
-  $('statusDot').className = 'dot ' + (ok ? 'ok' : '');
+  $('statusDot').className = 'dot ok';
 }
 
 function updateDelta(rows){
   const make = (subset) => {
     const real = subset.filter(r => !r.filled);
-    const slope = regression(real);
-    return {slope, n: real.length};
+    return {slope: regression(real), n: real.length};
   };
-
   const full = make(rows);
   const last = rows[rows.length-1];
   if(!last) return;
-  const cut10 = monthIndex(last.date) - 10*12;
-  const cut5  = monthIndex(last.date) - 5*12;
+  const cut10 = monthIndex(last.date) - 120;
+  const cut5  = monthIndex(last.date) - 60;
   const d10 = make(rows.filter(r => monthIndex(r.date) >= cut10));
   const d5  = make(rows.filter(r => monthIndex(r.date) >= cut5));
 
   const show = (el, nEl, obj) => {
     if(obj.slope === null){
-      el.textContent = '—';
-      el.className = '';
+      el.textContent = '—'; el.className = '';
     } else {
-      const s = (obj.slope > 0 ? '+' : '') + fmt(obj.slope);
-      el.textContent = s + ' cm/yr';
+      el.textContent = (obj.slope>0?'+':'') + fmt(obj.slope) + ' cm/yr';
       el.className = obj.slope > 0.05 ? 'delta-positive' : (obj.slope < -0.05 ? 'delta-negative' : '');
     }
     nEl.textContent = 'Observed months: ' + obj.n;
   };
-
   show($('deltaFull'), $('deltaFullN'), full);
   show($('delta10'),   $('delta10N'),   d10);
   show($('delta5'),    $('delta5N'),    d5);
 
-  const signs = [full.slope, d10.slope, d5.slope].map(s => s === null ? 0 : (s > 0.08 ? 1 : (s < -0.08 ? -1 : 0)));
+  const s0 = full.slope||0, s2 = d5.slope||0;
   let msg = 'All three windows show a broadly consistent direction. ';
-  if(signs[0] !== signs[2] && signs[2] !== 0){
+  if((s0 > 0.1 && s2 < -0.1) || (s0 < -0.1 && s2 > 0.1)){
     msg = 'Possible recent change of direction relative to the full record. Investigate further with independent data. ';
-  } else if(Math.abs(full.slope || 0) > 0.8){
-    msg = 'Full-record slope is relatively strong. Shorter windows help check whether the recent behaviour differs. ';
+  } else if(Math.abs(s0) > 0.9){
+    msg = 'Full-record slope is relatively strong. Shorter windows help check whether recent behaviour differs. ';
   }
   msg += 'Remember: these are descriptive slopes only.';
   $('deltaInterpretation').textContent = msg;
 }
 
 function updateConstellation(){
-  const isCal = region === 'california';
-  const text = isCal
+  const text = region === 'california'
     ? 'California Central Valley — literature documents long-term groundwater depletion and land subsidence. The prototype series is consistent with a negative full-record signal. Independent local well networks and InSAR remain essential for finer-scale claims.'
     : 'Taoudeni–Tanezrouft Basin — the prototype series is near-flat to weakly negative. This basin is not interchangeable with the Inner Niger Delta. Geographic definition and independent verification are required before any regional interpretation.';
   $('constellationAssessment').textContent = text;
@@ -389,28 +425,24 @@ function drawChart(data){
   });
 
   let path = '';
-  data.forEach((d,i)=>{
-    path += (i?' L':'M') + x(i).toFixed(1) + ' ' + y(d.value).toFixed(1);
-  });
+  data.forEach((d,i)=> path += (i?' L':'M') + x(i).toFixed(1) + ' ' + y(d.value).toFixed(1));
   parts.push('<path class="series" d="'+path+'"/>');
 
   data.forEach((d,i)=>{
     const cx = x(i), cy = y(d.value);
     const cls = d.filled ? 'filled-dot' : 'real-dot';
-    const r = d.filled ? 2.8 : 1.8;
-    parts.push('<circle class="'+cls+'" cx="'+cx+'" cy="'+cy+'" r="'+r+'"><title>'+d.date+': '+fmt(d.value,3)+' cm ('+(d.filled?'gap-filled':'available')+')</title></circle>');
+    parts.push('<circle class="'+cls+'" cx="'+cx+'" cy="'+cy+'" r="'+(d.filled?2.8:1.8)+'"><title>'+d.date+': '+fmt(d.value,3)+' cm ('+(d.filled?'gap-filled':'available')+')</title></circle>');
   });
   parts.push('<text class="axis" x="'+L+'" y="13">ANOMALY (cm)</text>');
   svg.innerHTML = parts.join('');
 }
 
 function render(){
-  const series = DATA[region][variable] || [];
+  const series = DATA[region][variable];
   const windowed = filterPeriod(series);
   const real = windowed.filter(r => !r.filled);
   const fills = windowed.filter(r => r.filled);
   const slope = regression(real);
-
   const first = real[0], last = real[real.length-1];
   const delta = (first && last) ? last.value - first.value : null;
 
@@ -424,7 +456,7 @@ function render(){
   $('chartCaption').textContent = 'Units: centimetres (cm). Window: ' + (windowed[0]?.date||'—') + ' → ' + (windowed[windowed.length-1]?.date||'—') + '. Trend uses ' + real.length + ' observed months; ' + fills.length + ' gap-filled months excluded from the fit.';
 
   drawChart(windowed);
-  if(series.length) updateDelta(series);
+  updateDelta(series);
   updateConstellation();
 
   $('rows').innerHTML = windowed.slice(-12).reverse().map(r =>
@@ -434,7 +466,6 @@ function render(){
   setStatus('Ready · ' + labels[region] + ' · ' + variable + ' · ' + windowed.length + ' months');
 }
 
-// events
 $('region').addEventListener('change', e => { region = e.target.value; render(); });
 $('period').addEventListener('change', e => { period = e.target.value; render(); });
 document.querySelectorAll('[data-variable]').forEach(btn => {
