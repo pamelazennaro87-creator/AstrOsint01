@@ -27,6 +27,20 @@ select{width:100%;min-height:44px}
 .chart-wrap{margin-top:15px;overflow-x:auto}svg{display:block;width:100%;min-width:580px;height:auto;overflow:visible}.gridline{stroke:#29465b;stroke-width:1}.axis{fill:#9fb4c5;font-size:11px}.series{fill:none;stroke:var(--cyan);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}.filled-dot{fill:var(--bg);stroke:var(--gold);stroke-width:1.5}.real-dot{fill:var(--cyan);stroke:var(--bg);stroke-width:1}
 .caption{color:var(--muted);font-size:.78rem;margin:13px 0 0}
 .delta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.delta-card{padding:15px;border:1px solid var(--line);border-radius:11px;background:rgba(5,18,30,.45)}.delta-card span{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}.delta-card strong{display:block;font-size:1.25rem;margin-top:5px}.delta-card small{display:block;color:var(--muted);margin-top:4px}.delta-note{margin-top:14px;padding:13px 15px;border-left:3px solid var(--gold);background:rgba(233,201,139,.05);color:#e8dfcd;font-size:.88rem}.delta-positive{color:#9dd8ff}.delta-negative{color:#f0c58c}.delta-neutral{color:var(--ink)}
+.constellation{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px;align-items:stretch}
+.constellation-node{position:relative;padding:14px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(5,18,30,.55);min-width:0}
+.constellation-node:after{content:"→";position:absolute;right:-11px;top:45%;z-index:1;color:var(--gold);font-weight:900}
+.constellation-node:last-child:after{display:none}
+.node-step{font-size:.68rem;letter-spacing:.12em;color:var(--cyan);font-weight:800;text-transform:uppercase}
+.node-title{font-weight:800;line-height:1.25;margin:7px 0;font-size:.92rem}
+.node-copy{font-size:.78rem;color:var(--muted);line-height:1.45}
+.node-status{display:inline-block;margin-top:10px;padding:3px 7px;border:1px solid var(--line);border-radius:999px;font-size:.66rem;font-weight:750;letter-spacing:.04em}
+.status-record{color:#a9d7ff;border-color:#416b8c}.status-limited{color:#f1d39b;border-color:#806a43}.status-missing{color:#f2aaa1;border-color:#80534f}
+.constellation-meta{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.constellation-links{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem}
+.constellation-note{margin-top:14px;padding:13px 15px;border-left:3px solid var(--gold);background:rgba(233,201,139,.05);color:#e8dfcd;font-size:.86rem}
+@media(max-width:760px){.constellation{grid-template-columns:1fr}.constellation-node:after{content:"↓";right:50%;top:auto;bottom:-18px}.constellation-node:last-child:after{display:none}}
+
 .details{display:grid;grid-template-columns:1fr 1fr;gap:15px}.detail{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:19px}.detail h3{font-size:1rem;margin:0 0 8px}.detail p{margin:0;color:var(--muted);font-size:.88rem}
 table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:650}td{font-variant-numeric:tabular-nums}
 footer{padding:25px 0 45px;color:var(--muted);font-size:.8rem}.foot{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -67,6 +81,19 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 </div>
 <div class="delta-note" id="deltaInterpretation" role="status">Waiting for source data…</div>
 <p class="caption">Method: ordinary least-squares slope in cm/year, calculated from populated non-filled monthly observations only. Windows are anchored to the final date in the selected CSV. This is not a Mann–Kendall test, a forecast or a significance test; serial correlation and uncertainty are not assessed here.</p>
+</section>
+<section class="panel" aria-labelledby="constellationTitle">
+<div class="chart-head"><h2 id="constellationTitle">Evidence Constellation · Trace the claim</h2><span class="caption">OSINT evidence chain</span></div>
+<p class="caption">Follow the selected study area's evidence chain. Each node states what is present, what is methodologically limited and what is still missing. Connections represent the documented analytical workflow—not proof of causation.</p>
+<div class="constellation" id="constellationGraph" aria-live="polite">
+<div class="constellation-node"><div class="node-step">01 · Source record</div><div class="node-title">Project CSV</div><div class="node-copy">Published monthly series.</div><span class="node-status status-record">IN REPOSITORY</span></div>
+<div class="constellation-node"><div class="node-step">02 · Satellite signal</div><div class="node-title">GRACE / GRACE-FO</div><div class="node-copy">Reported upstream TWS anomaly source.</div><span class="node-status status-limited">PROVENANCE LIMITED</span></div>
+<div class="constellation-node"><div class="node-step">03 · Model residual</div><div class="node-title">GLDAS components</div><div class="node-copy">Used in the documented GWS residual workflow.</div><span class="node-status status-limited">MODEL-DERIVED</span></div>
+<div class="constellation-node"><div class="node-step">04 · Analytical signal</div><div class="node-title">Trend / Evidence Delta</div><div class="node-copy">Descriptive change across time windows.</div><span class="node-status status-record">REPRODUCIBLE IN EXPLORER</span></div>
+<div class="constellation-node"><div class="node-step">05 · External check</div><div class="node-title">Independent evidence</div><div class="node-copy">Well, hydrology, subsidence or field observations.</div><span class="node-status status-missing">NOT YET LINKED</span></div>
+</div>
+<div class="constellation-note" id="constellationAssessment" role="status">Assessment will update with the selected study area.</div>
+<div class="constellation-meta"><span class="caption">Evidence status is not a confidence score.</span><div class="constellation-links"><a href="../docs/DATA_PROVENANCE_AUDIT.md">Provenance audit</a><a href="../docs/EVIDENCE_CONSTELLATION_METHOD.md">Graph methodology</a></div></div>
 </section>
 <section class="panel">
 <div class="chart-head"><h2 id="chartTitle">Monthly total water storage anomaly</h2><div class="legend"><span class="key"><i class="swatch"></i>Observed / available</span><span class="key"><i class="swatch filled"></i>Gap-filled value</span></div></div>
@@ -121,6 +148,22 @@ function windowSlope(raw, years){
  valid.forEach(r=>{const dx=monthIndex(r.date)-meanX;numerator+=dx*(r.value-meanY);denominator+=dx*dx});
  return {slope:denominator?numerator/denominator*12:null,count:valid.length};
 }
+function renderEvidenceConstellation(){
+ const isCalifornia=region==='california';
+ const file=isCalifornia?'central_valley.csv.csv':'taoudeni-tanezrouft%20basin.csv.csv';
+ const area=isCalifornia?'California Central Valley':'Taoudeni–Tanezrouft Basin';
+ const assessment=isCalifornia
+  ?'The project record and descriptive trend are available for the Central Valley. The documented regional context includes groundwater depletion and land subsidence, but this Explorer does not yet join a specific well, subsidence or field-observation record to the same polygon and time window. Treat the external context as corroboration to investigate, not as validation of every monthly value.'
+  :'The project CSV is explicitly labelled Taoudeni–Tanezrouft Basin. It must not be relabelled as Inner Niger Delta evidence. The polygon/export receipt is unresolved, and no matched independent hydrological or groundwater observation is linked here. Geographic identity and external corroboration remain open checks.';
+ const graph=$('constellationGraph');
+ graph.innerHTML=
+  '<div class="constellation-node"><div class="node-step">01 · Source record</div><div class="node-title">'+area+'</div><div class="node-copy"><a href="https://github.com/AstrOsint01/nasa-water-storage-analysis/blob/main/'+file+'">Open project CSV</a><br>Monthly source file stored in the linked data repository.</div><span class="node-status status-record">IN REPOSITORY</span></div>'+
+  '<div class="constellation-node"><div class="node-step">02 · Satellite signal</div><div class="node-title">GRACE / GRACE-FO</div><div class="node-copy">TWSa source is reported in project documentation. Original export receipt, exact product/version and region mask are not archived.</div><span class="node-status status-limited">PROVENANCE LIMITED</span></div>'+
+  '<div class="constellation-node"><div class="node-step">03 · Model residual</div><div class="node-title">GLDAS components</div><div class="node-copy">GWSa is a residual estimate. Surface-water storage may remain; it is not a direct well measurement.</div><span class="node-status status-limited">MODEL-DERIVED</span></div>'+
+  '<div class="constellation-node"><div class="node-step">04 · Analytical signal</div><div class="node-title">Trend / Evidence Delta</div><div class="node-copy">OLS trend and three-window comparison run on observed, non-filled monthly values.</div><span class="node-status status-record">REPRODUCIBLE IN EXPLORER</span></div>'+
+  '<div class="constellation-node"><div class="node-step">05 · External check</div><div class="node-title">Independent evidence</div><div class="node-copy">No matched well, river, reservoir, land-subsidence or field series is joined to this exact study mask and period.</div><span class="node-status status-missing">NOT YET LINKED</span></div>';
+ $('constellationAssessment').textContent=assessment;
+}
 function renderEvidenceDelta(raw){
  const windows=[['deltaFull',null],['delta10',10],['delta5',5]];
  const results=windows.map(([id,years])=>{const r=windowSlope(raw,years);$(id).textContent=r.slope===null?'—':(r.slope>0?'+':'')+fmt(r.slope)+' cm/yr';$(id).className=r.slope>0?'delta-positive':r.slope<0?'delta-negative':'delta-neutral';$(id+'N').textContent='Observed months: '+r.count;return r});
@@ -133,6 +176,7 @@ function renderEvidenceDelta(raw){
 }
 function render(){
  const raw=datasets[region];if(!raw)return;
+ renderEvidenceConstellation();
  renderEvidenceDelta(raw);
  let rows=raw.map(r=>({date:r.Date,value:num(r[variable]),filledValue:num(r[variable+'_filled']),lower:num(r[variable+'_lower']),upper:num(r[variable+'_upper']),isFilled:r[variable+'_is_filled']==='1'}));
  rows=rows.map(r=>({...r,plotValue:r.value!==null?r.value:r.filledValue,filled:r.value===null||r.isFilled}));
