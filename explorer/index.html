@@ -26,12 +26,13 @@ select{width:100%;min-height:44px}
 .chart-head{display:flex;justify-content:space-between;align-items:start;gap:15px;flex-wrap:wrap}.chart-head h2{font-size:1.25rem;margin:0}.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.78rem}.key{display:inline-flex;align-items:center;gap:7px}.swatch{width:17px;height:3px;background:var(--cyan);display:inline-block}.swatch.filled{background:repeating-linear-gradient(90deg,var(--gold) 0 4px,transparent 4px 7px)}
 .chart-wrap{margin-top:15px;overflow-x:auto}svg{display:block;width:100%;min-width:580px;height:auto;overflow:visible}.gridline{stroke:#29465b;stroke-width:1}.axis{fill:#9fb4c5;font-size:11px}.series{fill:none;stroke:var(--cyan);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}.filled-dot{fill:var(--bg);stroke:var(--gold);stroke-width:1.5}.real-dot{fill:var(--cyan);stroke:var(--bg);stroke-width:1}
 .caption{color:var(--muted);font-size:.78rem;margin:13px 0 0}
+.delta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.delta-card{padding:15px;border:1px solid var(--line);border-radius:11px;background:rgba(5,18,30,.45)}.delta-card span{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}.delta-card strong{display:block;font-size:1.25rem;margin-top:5px}.delta-card small{display:block;color:var(--muted);margin-top:4px}.delta-note{margin-top:14px;padding:13px 15px;border-left:3px solid var(--gold);background:rgba(233,201,139,.05);color:#e8dfcd;font-size:.88rem}.delta-positive{color:#9dd8ff}.delta-negative{color:#f0c58c}.delta-neutral{color:var(--ink)}
 .details{display:grid;grid-template-columns:1fr 1fr;gap:15px}.detail{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:19px}.detail h3{font-size:1rem;margin:0 0 8px}.detail p{margin:0;color:var(--muted);font-size:.88rem}
 table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:650}td{font-variant-numeric:tabular-nums}
 footer{padding:25px 0 45px;color:var(--muted);font-size:.8rem}.foot{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .safe{position:fixed;right:14px;bottom:14px;background:#c9dcf5;color:#101e32;border:0;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;z-index:5}
 body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-@media(max-width:760px){.controls{grid-template-columns:1fr 1fr}.controls>div:first-child{grid-column:1/-1}.kpis{grid-template-columns:1fr 1fr}.details{grid-template-columns:1fr}.panel{padding:16px}.hero{padding-top:40px}}
+@media(max-width:760px){.delta-grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.controls>div:first-child{grid-column:1/-1}.kpis{grid-template-columns:1fr 1fr}.details{grid-template-columns:1fr}.panel{padding:16px}.hero{padding-top:40px}}
 @media(max-width:420px){.controls{grid-template-columns:1fr}.controls>div:first-child{grid-column:auto}.kpi strong{font-size:1.15rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
@@ -55,6 +56,17 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 <div class="kpi"><span>Observed months</span><strong id="count">—</strong></div>
 <div class="kpi"><span>First → last</span><strong id="change">—</strong></div>
 <div class="kpi"><span>Filled months</span><strong id="filled">—</strong></div>
+</section>
+<section class="panel" aria-labelledby="deltaTitle">
+<div class="chart-head"><h2 id="deltaTitle">Evidence Delta · Does the signal change direction?</h2><span class="caption">Descriptive trend comparison</span></div>
+<p class="caption">Compare the selected variable across three nested time windows. A direction change is a research signal worth investigating—not proof of recovery, deterioration or causation.</p>
+<div class="delta-grid" aria-live="polite">
+<div class="delta-card"><span>Full available record</span><strong id="deltaFull">—</strong><small id="deltaFullN">Observed months: —</small></div>
+<div class="delta-card"><span>Last 10 years</span><strong id="delta10">—</strong><small id="delta10N">Observed months: —</small></div>
+<div class="delta-card"><span>Last 5 years</span><strong id="delta5">—</strong><small id="delta5N">Observed months: —</small></div>
+</div>
+<div class="delta-note" id="deltaInterpretation" role="status">Waiting for source data…</div>
+<p class="caption">Method: ordinary least-squares slope in cm/year, calculated from populated non-filled monthly observations only. Windows are anchored to the final date in the selected CSV. This is not a Mann–Kendall test, a forecast or a significance test; serial correlation and uncertainty are not assessed here.</p>
 </section>
 <section class="panel">
 <div class="chart-head"><h2 id="chartTitle">Monthly total water storage anomaly</h2><div class="legend"><span class="key"><i class="swatch"></i>Observed / available</span><span class="key"><i class="swatch filled"></i>Gap-filled value</span></div></div>
@@ -95,8 +107,33 @@ function regression(rows,key){
 }
 function monthIndex(date){const parts=date.split('-').map(Number);return parts[0]*12+(parts[1]||1)-1;}
 function setStatus(message,type){$('statusText').textContent=message;$('statusDot').className='dot '+(type||'')}
+function windowSlope(raw, years){
+ const lastDate=raw.length?raw[raw.length-1].Date:null;
+ if(!lastDate)return {slope:null,count:0};
+ const end=new Date(lastDate+'T00:00:00Z'),cut=new Date(end);
+ if(years!==null)cut.setUTCFullYear(cut.getUTCFullYear()-years);
+ const selected=raw.filter(r=>new Date(r.Date+'T00:00:00Z')>=cut);
+ const valid=selected.map(r=>({date:r.Date,value:num(r[variable])})).filter(r=>Number.isFinite(r.value));
+ if(valid.length<2)return {slope:null,count:valid.length};
+ const meanX=valid.reduce((a,r)=>a+monthIndex(r.date),0)/valid.length;
+ const meanY=valid.reduce((a,r)=>a+r.value,0)/valid.length;
+ let numerator=0,denominator=0;
+ valid.forEach(r=>{const dx=monthIndex(r.date)-meanX;numerator+=dx*(r.value-meanY);denominator+=dx*dx});
+ return {slope:denominator?numerator/denominator*12:null,count:valid.length};
+}
+function renderEvidenceDelta(raw){
+ const windows=[['deltaFull',null],['delta10',10],['delta5',5]];
+ const results=windows.map(([id,years])=>{const r=windowSlope(raw,years);$(id).textContent=r.slope===null?'—':(r.slope>0?'+':'')+fmt(r.slope)+' cm/yr';$(id).className=r.slope>0?'delta-positive':r.slope<0?'delta-negative':'delta-neutral';$(id+'N').textContent='Observed months: '+r.count;return r});
+ const a=results[0].slope,b=results[1].slope,c=results[2].slope;
+ let message='The available windows do not show a clear direction reversal. Compare the values with the source record and regional context.';
+ if(a!==null&&c!==null&&a*c<0)message='SIGNAL TENSION: the full-record and last-five-year slopes have opposite signs. A long-term average may conceal a more recent change. Investigate seasonality, drought/recovery episodes, data gaps and independent evidence before interpreting the shift.';
+ else if(a!==null&&b!==null&&a*b<0)message='POSSIBLE RECENT SHIFT: the full-record and last-ten-year slopes have opposite signs. The selected period materially affects the descriptive trend; do not summarize it with one number.';
+ else if(a!==null&&c!==null&&Math.abs(a)<0.1&&Math.abs(c)<0.1)message='LOW-MAGNITUDE SIGNAL: all compared slopes are close to zero at this display scale. This does not establish stability; inspect variability, uncertainty and local evidence.';
+ $('deltaInterpretation').textContent=message;
+}
 function render(){
  const raw=datasets[region];if(!raw)return;
+ renderEvidenceDelta(raw);
  let rows=raw.map(r=>({date:r.Date,value:num(r[variable]),filledValue:num(r[variable+'_filled']),lower:num(r[variable+'_lower']),upper:num(r[variable+'_upper']),isFilled:r[variable+'_is_filled']==='1'}));
  rows=rows.map(r=>({...r,plotValue:r.value!==null?r.value:r.filledValue,filled:r.value===null||r.isFilled}));
  if(period!=='all'){
