@@ -34,6 +34,7 @@ The Explorer:
 - reads monthly CSV files from the project data repository;
 - lets visitors switch region, variable and time window;
 - displays the time series and a descriptive ordinary least-squares trend;
+- includes **Evidence Delta**, a three-window trend comparison (full record / 10 years / 5 years) that flags possible direction changes without presenting them as forecasts or causal findings;
 - fits the trend to observed, non-filled values only;
 - shows gap-filled months separately;
 - states geographic and spatial-resolution limitations.
