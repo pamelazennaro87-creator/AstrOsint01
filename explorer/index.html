@@ -36,10 +36,11 @@ select{width:100%;min-height:44px}
 .node-copy{font-size:.78rem;color:var(--muted);line-height:1.45}
 .node-status{display:inline-block;margin-top:10px;padding:3px 7px;border:1px solid var(--line);border-radius:999px;font-size:.66rem;font-weight:750;letter-spacing:.04em}
 .status-record{color:#a9d7ff;border-color:#416b8c}.status-limited{color:#f1d39b;border-color:#806a43}.status-missing{color:#f2aaa1;border-color:#80534f}
+.lead-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.lead-card{padding:13px;border:1px solid var(--line);border-radius:11px;background:rgba(5,18,30,.42);min-width:0}.lead-card a{font-weight:800}.lead-card p{margin:7px 0 0;color:var(--muted);font-size:.78rem;line-height:1.45}.lead-tag{display:inline-block;margin-top:8px;color:var(--gold);font-size:.65rem;letter-spacing:.08em;font-weight:800;text-transform:uppercase}.lead-heading{margin:20px 0 0;font-size:.92rem}.lead-warning{margin:9px 0 0;color:var(--muted);font-size:.76rem}
 .constellation-meta{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}
 .constellation-links{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem}
 .constellation-note{margin-top:14px;padding:13px 15px;border-left:3px solid var(--gold);background:rgba(233,201,139,.05);color:#e8dfcd;font-size:.86rem}
-@media(max-width:760px){.constellation{grid-template-columns:1fr}.constellation-node:after{content:"↓";right:50%;top:auto;bottom:-18px}.constellation-node:last-child:after{display:none}}
+@media(max-width:760px){.lead-grid{grid-template-columns:1fr}.constellation{grid-template-columns:1fr}.constellation-node:after{content:"↓";right:50%;top:auto;bottom:-18px}.constellation-node:last-child:after{display:none}}
 
 .details{display:grid;grid-template-columns:1fr 1fr;gap:15px}.detail{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:19px}.detail h3{font-size:1rem;margin:0 0 8px}.detail p{margin:0;color:var(--muted);font-size:.88rem}
 table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:650}td{font-variant-numeric:tabular-nums}
@@ -93,6 +94,9 @@ body.safe-mode *,body.safe-mode *:before,body.safe-mode *:after{animation:none!i
 <div class="constellation-node"><div class="node-step">05 · External check</div><div class="node-title">Independent evidence</div><div class="node-copy">Well, hydrology, subsidence or field observations.</div><span class="node-status status-missing">NOT YET LINKED</span></div>
 </div>
 <div class="constellation-note" id="constellationAssessment" role="status">Assessment will update with the selected study area.</div>
+<h3 class="lead-heading">Independent verification leads · candidate sources</h3>
+<div class="lead-grid" id="constellationLeads" aria-live="polite"></div>
+<p class="lead-warning">These are source-discovery portals, not evidence already matched to the project polygon. A source becomes corroboration only after its location, dates, units, method and uncertainty are checked against the study area.</p>
 <div class="constellation-meta"><span class="caption">Evidence status is not a confidence score.</span><div class="constellation-links"><a href="../docs/DATA_PROVENANCE_AUDIT.md">Provenance audit</a><a href="../docs/EVIDENCE_CONSTELLATION_METHOD.md">Graph methodology</a></div></div>
 </section>
 <section class="panel">
@@ -163,6 +167,16 @@ function renderEvidenceConstellation(){
   '<div class="constellation-node"><div class="node-step">04 · Analytical signal</div><div class="node-title">Trend / Evidence Delta</div><div class="node-copy">OLS trend and three-window comparison run on observed, non-filled monthly values.</div><span class="node-status status-record">REPRODUCIBLE IN EXPLORER</span></div>'+
   '<div class="constellation-node"><div class="node-step">05 · External check</div><div class="node-title">Independent evidence</div><div class="node-copy">No matched well, river, reservoir, land-subsidence or field series is joined to this exact study mask and period.</div><span class="node-status status-missing">NOT YET LINKED</span></div>';
  $('constellationAssessment').textContent=assessment;
+ const leads=isCalifornia?[
+  {name:'California Groundwater Live',url:'https://calgwlive.water.ca.gov/',desc:'DWR groundwater levels, well information and current InSAR-based land-subsidence views.'},
+  {name:'DWR SGMA Data & Tools',url:'https://www.water.ca.gov/Programs/Groundwater-Management/Data-and-Tools',desc:'Official groundwater datasets and viewers; inspect monitoring wells and subsidence layers.'},
+  {name:'NASA GRACE Tellus',url:'https://grace.jpl.nasa.gov/data/get-data/',desc:'Primary mission data and product documentation for independent source-level checks.'}
+ ]:[
+  {name:'OSS · ITTAS programme',url:'https://www.oss-online.org/sites/default/files/2024-09/OSS-CoordinateManagementSharedWater.pdf',desc:'Regional transboundary aquifer context for the Iullemeden–Taoudeni/Tanezrouft system; not a matched monthly validation series.'},
+  {name:'IGRAC Global Groundwater IS',url:'https://un-igrac.org/data/',desc:'Gateway to groundwater datasets, well and monitoring information; coverage and access must be checked by country and basin.'},
+  {name:'NASA GRACE Tellus',url:'https://grace.jpl.nasa.gov/data/get-data/',desc:'Primary mission data and product documentation for independent source-level checks.'}
+ ];
+ $('constellationLeads').innerHTML=leads.map(item=>'<article class="lead-card"><a href="'+item.url+'" target="_blank" rel="noopener noreferrer">'+item.name+' ↗</a><p>'+item.desc+'</p><span class="lead-tag">Candidate source · not integrated</span></article>').join('');
 }
 function renderEvidenceDelta(raw){
  const windows=[['deltaFull',null],['delta10',10],['delta5',5]];
