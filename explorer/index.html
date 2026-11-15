@@ -143,7 +143,7 @@ function windowSlope(raw, years){
  if(!lastDate)return {slope:null,count:0};
  const end=new Date(lastDate+'T00:00:00Z'),cut=new Date(end);
  if(years!==null)cut.setUTCFullYear(cut.getUTCFullYear()-years);
- const selected=raw.filter(r=>new Date(r.Date+'T00:00:00Z')>=cut);
+ const selected=years===null?raw:raw.filter(r=>new Date(r.Date+'T00:00:00Z')>=cut);
  const valid=selected.map(r=>({date:r.Date,value:num(r[variable])})).filter(r=>Number.isFinite(r.value));
  if(valid.length<2)return {slope:null,count:valid.length};
  const meanX=valid.reduce((a,r)=>a+monthIndex(r.date),0)/valid.length;
