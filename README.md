@@ -36,6 +36,7 @@ The Explorer:
 - displays the time series and a descriptive ordinary least-squares trend;
 - includes **Evidence Delta**, a three-window trend comparison (full record / 10 years / 5 years) that flags possible direction changes without presenting them as forecasts or causal findings;
 - includes **Evidence Constellation**, an OSINT-style evidence chain linking the project CSV, reported satellite/model workflow, descriptive analysis and still-missing independent checks, with explicit provenance statuses;
+- surfaces region-specific **candidate verification portals** (California DWR / NASA; OSS / IGRAC / NASA) while clearly marking them as leads, not data already integrated or matched;
 - fits the trend to observed, non-filled values only;
 - shows gap-filled months separately;
 - states geographic and spatial-resolution limitations.
