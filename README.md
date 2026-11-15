@@ -72,7 +72,18 @@ The trend is descriptive. It is not a significance test, forecast or causal mode
 
 We prioritize keyboard navigation, readable structure, reduced motion, no flashing effects, data tables and text explanations alongside charts. Safe Mode is available in the site and Explorer. These are design safeguards, not clinical certification; testing with assistive technologies and users remains necessary.
 
+## Release readiness and live smoke test
+
+The public GitHub Pages Explorer was checked in a live browser on 15 November 2026. Both CSV endpoints loaded (291 monthly rows each), the region selector switched successfully, Evidence Delta and Evidence Constellation rendered, and no page-visible or console-visible errors were reported.
+
+A defect in the full-record Evidence Delta window was found during testing and fixed in commit [1d3fbef](https://github.com/pamelazennaro87-creator/AstrOsint01/commit/1d3fbefca82d51e0272bf570eccb948ea40e47f1). A cache-busted live retest confirmed that the full-record calculation now uses all 256 observed months for both study areas. See the [release-readiness audit](docs/RELEASE_READINESS_AUDIT.md) for the tested values and remaining scientific limitations.
+
 ## Current status
+
+The public website and CSV-backed Explorer are deployed and the core interactive flow has passed a live smoke test. The project is **presentation-ready as an exploratory prototype**, not a fully independently validated scientific product. The Explorer retrieves its two CSVs from the separate `AstrOsint01/nasa-water-storage-analysis` repository; the files contain 291 monthly rows (April 2002–June 2026), of which 256 are observed and 35 are gap-filled for each series. The NASA PO.DAAC and Copernicus sources are documented, but new NASA NetCDF granules have not been downloaded, processed or integrated into this Explorer.
+
+The remaining limitations are material and visible: the original export receipts and exact region polygons are not archived; no independent well, hydrological or InSAR series has been spatially and temporally matched to the CSVs; the trends are descriptive OLS slopes rather than significance-tested estimates; and accessibility safeguards still require testing with assistive technologies and users. Do not describe the external candidate portals as integrated corroboration, or the current output as causal or predictive.
+
 
 The website and CSV-backed Explorer are working research prototypes. The NASA PO.DAAC and Copernicus sources are documented, but this documentation update does not mean new NetCDF granules have been downloaded, processed or integrated into the Explorer. Geographic alignment, complete source traceability, statistical significance testing and user accessibility testing remain active validation tasks.
 
