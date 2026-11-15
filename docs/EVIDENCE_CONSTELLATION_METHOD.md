@@ -59,6 +59,24 @@ Before upgrading independent validation, add a dataset with:
 
 A dataset discovered in a catalogue is not an integrated dataset. A regional paper is not automatically a matched validation record. A correlation is not proof of causation.
 
+## Candidate independent-source leads
+
+The Explorer exposes discovery portals selected by study area. These links are **research leads only**; opening a portal does not mean its data have been downloaded, spatially matched, quality-controlled or used to validate the project CSV.
+
+### California Central Valley
+
+- [California Groundwater Live](https://calgwlive.water.ca.gov/) — California DWR groundwater-level, well and InSAR land-subsidence views.
+- [California DWR groundwater data and tools](https://www.water.ca.gov/Programs/Groundwater-Management/Data-and-Tools) — official groundwater datasets and SGMA viewers.
+- [NASA GRACE Tellus data](https://grace.jpl.nasa.gov/data/get-data/) — mission products and documentation for source-level verification.
+
+### Taoudeni–Tanezrouft
+
+- [OSS ITTAS programme document](https://www.oss-online.org/sites/default/files/2024-09/OSS-CoordinateManagementSharedWater.pdf) — regional context for the Iullemeden–Taoudeni/Tanezrouft transboundary aquifer system; not a matched monthly validation series for this CSV.
+- [IGRAC data gateway](https://un-igrac.org/data/) — discovery route for groundwater datasets, wells and monitoring information. Coverage, licences and temporal availability must be checked.
+- [NASA GRACE Tellus data](https://grace.jpl.nasa.gov/data/get-data/) — mission products and documentation for source-level verification.
+
+A candidate source can be promoted to **INDEPENDENT DATA LINKED** only after the team records the exact dataset and version, publisher, download date, geometry/coordinates, temporal coverage, units, measurement method, uncertainty and quality flags. The comparison must then be reproducible and must use a spatial footprint and period appropriate to the project CSV. Do not infer basin-level coverage from a portal's general geographic scope.
+
 ## Interpretation principle
 
 The graph's arrows represent the documented analytical workflow, not causal influence. Missing evidence is displayed as a first-class result. The purpose is to show what can be stated, what remains provisional and what observation would most efficiently reduce uncertainty.
