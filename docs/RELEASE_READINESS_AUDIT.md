@@ -29,6 +29,8 @@ A live browser smoke test confirmed:
 
 This is a functional smoke test, not a complete cross-browser, mobile-device, screen-reader or formal accessibility audit.
 
+A second live interaction pass tested 10 actions with 10 successful results and no visible errors: switching TWSa/GWSa, selecting 10-year and 5-year windows, switching both study areas, and toggling Safe Mode on and off. The observed-month counts and displayed chart titles updated as expected.
+
 ## 2. Corrected analytical defect
 
 The first live test exposed a bug in `windowSlope()`: when the requested window was the full record (`years === null`), the code applied a date filter beginning at the final CSV month. The full-record card therefore used only one observation and returned no slope.
